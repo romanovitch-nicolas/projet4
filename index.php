@@ -35,6 +35,15 @@ try {
                 }
             break;
 
+            case 'report':
+                if ((isset($_GET['post_id']) && $_GET['post_id'] > 0) && (isset($_GET['comment_id']) && $_GET['comment_id'] > 0)) {
+                    $frontend->report($_GET['comment_id'], $_GET['post_id']);
+                }
+                else {
+                    throw new Exception('Impossible de signaler le commentaire !');
+                }
+            break;
+
             case 'connexion':
                 if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
                     require('views/frontend/homeView.php');

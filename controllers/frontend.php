@@ -37,4 +37,17 @@ class FrontendController
             header('Location: index.php?action=post&id=' . $postId);
         }
     }
+
+    public function report($commentId, $postId)
+    {
+        $commentManager = new \Nicolas\Projet4\Models\CommentManager();
+        $affectedLines = $commentManager->setReporting($commentId);
+
+        if ($affectedLines === false) {
+            throw new Exception('Impossible de signaler le commentaire !');
+        }
+        else {
+            header('Location: index.php?action=post&id=' . $postId);
+        }
+    }
 }

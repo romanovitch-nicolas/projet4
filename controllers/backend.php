@@ -63,6 +63,7 @@ class BackendController
         $adminManager = new \Nicolas\Projet4\Models\AdminManager();
 
         $comments = $adminManager->getAllComments();
+        $reportedComments = $adminManager->getReportedComments();
 
         require('views/backend/adminCommentsView.php');
     }

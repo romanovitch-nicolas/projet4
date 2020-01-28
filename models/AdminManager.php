@@ -23,6 +23,18 @@ class AdminManager extends Manager
         return $affectedPost;
     }
 
+    public function getReportedComments()
+    {
+        $db = $this->dbConnect();
+        $reportedComments = $db->prepare('SELECT posts.id AS tableposts_id, posts.title AS tableposts_title,
+                                comments.id, comments.post_id, comments.author, comments.comment, DATE_FORMAT(comments.comment_date, \'%d/%m/%Y, %Hh%i\') AS comment_date_fr
+                                FROM posts, comments
+                                WHERE posts.id = comments.post_id AND comments.report = 1
+                                ORDER BY comment_date
+                                DESC');
+        return $reportedComments;
+    }
+
     public function getAllComments()
     {
         $db = $this->dbConnect();
