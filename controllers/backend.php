@@ -54,7 +54,7 @@ class BackendController
             throw new Exception('Impossible d\'ajouter l\'article !');
         }
         else {
-            header('Location: index.php?action=listPosts');
+            header('Location: index.php?action=adminPosts');
         }
     }
 
@@ -66,6 +66,14 @@ class BackendController
         $reportedComments = $adminManager->getReportedComments();
 
         require('views/backend/adminCommentsView.php');
+    }
+
+    public function listPosts()
+    {
+        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+        $posts = $adminManager->getAllPosts();
+
+        require('views/backend/adminPostsView.php');
     }
 
     public function adminEditPost($postId) 
@@ -99,7 +107,7 @@ class BackendController
             throw new Exception('Impossible de supprimer ce chapitre !');
         }
         else {
-           header('Location: index.php?action=listPosts');
+            header('Location: index.php?action=adminPosts');
         }    
     }
 

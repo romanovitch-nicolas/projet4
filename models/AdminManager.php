@@ -47,6 +47,14 @@ class AdminManager extends Manager
         return $comments;
     }
 
+    public function getAllPosts()
+    {
+        $db = $this->dbConnect();
+        $posts = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
+
+        return $posts;
+    }
+
     public function setEditPost($postId)
     {
         $db = $this->dbConnect();

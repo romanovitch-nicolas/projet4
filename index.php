@@ -117,6 +117,15 @@ try {
                 }
             break;
 
+            case 'adminPosts':
+                if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
+                    $backend->listPosts();
+                }
+                else {
+                    throw new Exception("Vous n'êtes pas connecté."); 
+                }
+            break;
+
             case 'deleteComment':
                 if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
