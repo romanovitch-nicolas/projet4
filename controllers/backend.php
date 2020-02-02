@@ -62,8 +62,9 @@ class BackendController
     {
         $adminManager = new \Nicolas\Projet4\Models\AdminManager();
 
-        $comments = $adminManager->getAllComments();
         $reportedComments = $adminManager->getReportedComments();
+        $comments = $adminManager->getAllComments();
+
 
         require('views/backend/adminCommentsView.php');
     }
@@ -122,5 +123,18 @@ class BackendController
         else {
            header('Location: index.php?action=adminComments');
         }    
+    }
+
+    public function deleteReport($commentId)
+    {
+        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+        $affectedLines = $adminManager->setDeleteReporting($commentId);
+
+        if ($affectedLines === false) {
+            throw new Exception('Impossible de supprimer le signalement !');
+        }
+        else {
+            header('Location: index.php?action=adminComments');
+        }
     }
 }

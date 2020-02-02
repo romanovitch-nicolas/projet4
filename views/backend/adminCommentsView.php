@@ -1,7 +1,11 @@
 <?php ob_start(); ?>
 <h1>Gérer les commentaires</h1>
-<p>Commentaires signalés :</p>
 
+<?php
+$reportedCommentsExist = $reportedComments->rowCount();
+if($reportedCommentsExist) {
+?>
+<p>Commentaires signalés :</p>
 <table>
 	<tr>
 		<th>Date et heure</th>
@@ -16,20 +20,23 @@
 	?>
 		<tr>
 			<td><?= $data['comment_date_fr'] ?></td>
-			<td><?= $data['tableposts_title'] ?></td>
+			<td><a href="index.php?action=post&amp;id=<?= $data['tableposts_id'] ?>"><?= $data['tableposts_title'] ?></a></td>
 			<td><?= htmlspecialchars_decode($data['author']) ?></td>
 			<td><?= nl2br(htmlspecialchars($data['comment'])) ?></td>
-			<td><a href="index.php?action=deleteComment&amp;id=<?= $data['id'] ?>">Supprimer</a></td>
+			<td><a href="index.php?action=deleteReport&amp;id=<?= $data['id'] ?>">Approuver</a> / <a href="index.php?action=deleteComment&amp;id=<?= $data['id'] ?>">Supprimer</a></td>
 		</tr>
 	<?php
 	}
 	$reportedComments->closeCursor();
 	?>
 </table>
+<br />
+<br />
+<br />
+<?php
+}
+?>
 
-<br />
-<br />
-<br />
 <p>Derniers commentaires :</p>
 
 <table>
@@ -46,7 +53,7 @@
 	?>
 		<tr>
 			<td><?= $data['comment_date_fr'] ?></td>
-			<td><?= $data['tableposts_title'] ?></td>
+			<td><a href="index.php?action=post&amp;id=<?= $data['tableposts_id'] ?>"><?= $data['tableposts_title'] ?></a></td>
 			<td><?= htmlspecialchars_decode($data['author']) ?></td>
 			<td><?= nl2br(htmlspecialchars($data['comment'])) ?></td>
 			<td><a href="index.php?action=deleteComment&amp;id=<?= $data['id'] ?>">Supprimer</a></td>

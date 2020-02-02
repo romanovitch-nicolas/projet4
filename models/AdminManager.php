@@ -26,7 +26,7 @@ class AdminManager extends Manager
     public function getReportedComments()
     {
         $db = $this->dbConnect();
-        $reportedComments = $db->prepare('SELECT posts.id AS tableposts_id, posts.title AS tableposts_title,
+        $reportedComments = $db->query('SELECT posts.id AS tableposts_id, posts.title AS tableposts_title,
                                 comments.id, comments.post_id, comments.author, comments.comment, DATE_FORMAT(comments.comment_date, \'%d/%m/%Y, %Hh%i\') AS comment_date_fr
                                 FROM posts, comments
                                 WHERE posts.id = comments.post_id AND comments.report = 1
@@ -92,5 +92,14 @@ class AdminManager extends Manager
         else {
             return $affectedLines;
         }
+    }
+
+        public function setDeleteReporting($commentId)
+    {
+        $db = $this->dbConnect();
+        $comments = $db->prepare('UPDATE comments SET report = 0 WHERE id = ?');
+        $affectedLines = $comments->execute(array($commentId));
+
+        return $affectedLines;
     }
 }

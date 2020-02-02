@@ -44,6 +44,15 @@ try {
                 }
             break;
 
+            case 'deleteReport':
+                if ((isset($_GET['id']) && $_GET['id'] > 0)) {
+                    $backend->deleteReport($_GET['id']);
+                }
+                else {
+                    throw new Exception('Impossible de supprimer le signalement.');
+                }
+            break;
+
             case 'connexion':
                 if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
                     require('views/frontend/homeView.php');

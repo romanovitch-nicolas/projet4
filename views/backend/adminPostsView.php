@@ -4,7 +4,7 @@
 
 <table>
 	<tr>
-		<th>Date et heure</th>
+		<th>Date</th>
 		<th>Article</th>
 		<th>Contenu</th>
 		<th>Action</th>
@@ -15,7 +15,7 @@
 	?>
 		<tr>
 			<td><?= $data['creation_date_fr'] ?></td>
-			<td><?= $data['title'] ?></td>
+			<td><a href="index.php?action=post&amp;id=<?= $data['id'] ?>"><?= $data['title'] ?></a></td>
 			<td><?php 
 		        $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));
 		        echo substr($postDescription, 0, 100) . '...';
