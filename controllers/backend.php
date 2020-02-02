@@ -112,6 +112,32 @@ class BackendController
         }    
     }
 
+    public function onlinePost($postId) 
+    {
+        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+        $affectedLines = $adminManager->setOnlinePost($postId);
+
+        if ($affectedLines === false) {
+            throw new Exception('Impossible de publier ce chapitre !');
+        }
+        else {
+           header('Location: index.php?action=adminPosts');
+        }    
+    }
+
+    public function offlinePost($postId) 
+    {
+        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+        $affectedLines = $adminManager->setOfflinePost($postId);
+
+        if ($affectedLines === false) {
+            throw new Exception('Impossible de passer ce chapitre dans les brouillons !');
+        }
+        else {
+           header('Location: index.php?action=adminPosts');
+        }    
+    }
+
     public function deleteComment($commentId)
     {
         $adminManager = new \Nicolas\Projet4\Models\AdminManager();

@@ -103,6 +103,34 @@ try {
                 }
             break;
 
+            case 'onlinePost':
+                if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        $backend->onlinePost($_GET['id']);
+                    }
+                    else {
+                        throw new Exception('Aucun identifiant de billet envoyé');
+                    }
+                }
+                else {
+                    throw new Exception("Vous n'êtes pas connecté."); 
+                }
+            break;
+
+            case 'offlinePost':
+                if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        $backend->offlinePost($_GET['id']);
+                    }
+                    else {
+                        throw new Exception('Aucun identifiant de billet envoyé');
+                    }
+                }
+                else {
+                    throw new Exception("Vous n'êtes pas connecté."); 
+                }
+            break;
+
             case 'deletePost':
                 if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {

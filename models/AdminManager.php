@@ -50,7 +50,7 @@ class AdminManager extends Manager
     public function getAllPosts()
     {
         $db = $this->dbConnect();
-        $posts = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
+        $posts = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, online FROM posts ORDER BY creation_date DESC');
 
         return $posts;
     }
@@ -81,20 +81,34 @@ class AdminManager extends Manager
         }
     }
 
+    public function setOnlinePost($postId)
+    {
+        $db = $this->dbConnect();
+        $posts = $db->prepare('UPDATE posts SET online = 1 WHERE id = ?');
+        $affectedLines = $posts->execute(array($postId));
+
+        return $affectedLines;
+    }
+
+    public function setOfflinePost($postId)
+    {
+        $db = $this->dbConnect();
+        $posts = $db->prepare('UPDATE posts SET online = 0 WHERE id = ?');
+        $affectedLines = $posts->execute(array($postId));
+
+        return $affectedLines;
+    }
+
     public function setDeleteComment($commentId)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM comments WHERE id = ?');
         $affectedLines = $req->execute(array($commentId));
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de supprimer le commentaire !');
-        }
-        else {
-            return $affectedLines;
-        }
+
+        return $affectedLines;
     }
 
-        public function setDeleteReporting($commentId)
+    public function setDeleteReporting($commentId)
     {
         $db = $this->dbConnect();
         $comments = $db->prepare('UPDATE comments SET report = 0 WHERE id = ?');
