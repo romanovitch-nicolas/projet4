@@ -77,6 +77,54 @@ class BackendController
         require('views/backend/adminPostsView.php');
     }
 
+    public function addMessage($messageName, $messageMail, $messageSubject, $messageContent)
+    {
+        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+
+        $messageName = htmlspecialchars($messageName);
+        $messageMail = htmlspecialchars($messageMail);
+        $messageSubject = htmlspecialchars($messageSubject);
+        $messageContent = htmlspecialchars($messageContent);
+        $affectedMessage = $adminManager->newMessage($messageName, $messageMail, $messageSubject, $messageContent);
+
+        if ($affectedMessage === false) {
+            throw new Exception('Impossible d\'envoyer le message !');
+        }
+        else {
+            echo 'Votre message à bien été envoyé.';
+        }
+    }
+
+    public function message()
+    {
+        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+
+        $message = $adminManager->getMessage($_GET['id']);
+
+        require('views/backend/messageView.php');
+    }
+
+    public function deleteMessage($messageId)
+    {
+        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+        $affectedLines = $adminManager->setDeleteMessage($messageId);
+
+        if ($affectedLines === false) {
+            throw new Exception('Impossible de supprimer ce message !');
+        }
+        else {
+            header('Location: index.php?action=adminMessages');
+        }    
+    }
+
+    public function listMessages()
+    {
+        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+        $messages = $adminManager->getAllMessages();
+
+        require('views/backend/adminMessagesView.php');
+    }
+
     public function adminEditPost($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();

@@ -163,6 +163,43 @@ try {
                 }
             break;
 
+            case 'adminMessages':
+                if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
+                    $backend->listMessages();
+                }
+                else {
+                    throw new Exception("Vous n'êtes pas connecté."); 
+                }
+            break;
+
+            case 'message':
+                if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        $backend->message();
+                    }
+                    else {
+                        throw new Exception('Aucun identifiant de message envoyé');
+                    }
+                }
+                else {
+                    throw new Exception("Vous n'êtes pas connecté."); 
+                }
+            break;
+
+            case 'deleteMessage':
+                if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        $backend->deleteMessage($_GET['id']);
+                    }
+                    else {
+                        throw new Exception('Aucun identifiant de message envoyé');
+                    }
+                }
+                else {
+                    throw new Exception("Vous n'êtes pas connecté."); 
+                }
+            break;
+
             case 'deleteComment':
                 if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -193,9 +230,25 @@ try {
     if (isset($_POST['connexion'])) {
         $backend->connect();
     }
+
     elseif (isset($_POST['sendPost'])) {
         if (!empty($_POST['postTitle']) && !empty($_POST['postContent'])) {
             $backend->addPost($_POST['postTitle'], $_POST['postContent']);
+        }
+        else {
+            throw new Exception('Tous les champs ne sont pas remplis !');
+        }
+    }
+
+    elseif (isset($_POST['sendMessage'])) {
+        if (!empty($_POST['messageName']) && !empty($_POST['messageMail']) && !empty($_POST['messageSubject']) && !empty($_POST['messageContent'])) {
+            if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $_POST['messageMail'])) {
+                $backend->addMessage($_POST['messageName'], $_POST['messageMail'], $_POST['messageSubject'], $_POST['messageContent']);
+            }
+            else {
+                throw new Exception('Veuillez renseigner une adresse mail valide.');
+                
+            }
         }
         else {
             throw new Exception('Tous les champs ne sont pas remplis !');

@@ -1,5 +1,7 @@
 <?php ob_start(); ?>
 <h1>Gérer les articles</h1>
+<p><a href="index.php?action=adminNewPost">Écrire un article</a></p>
+<br />
 <p>Derniers articles :</p>
 
 <table>
