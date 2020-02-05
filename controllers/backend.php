@@ -42,13 +42,15 @@ class BackendController
         }
     }
 
-    public function addPost($postTitle, $postContent)
+    public function addPost($postTitle, $postContent, $imageUrl)
     {
         $adminManager = new \Nicolas\Projet4\Models\AdminManager();
 
         $postTitle = htmlspecialchars($postTitle);
         $postContent = htmlspecialchars($postContent);
-        $affectedPost = $adminManager->newPost($postTitle, $postContent);
+        $imageUrl =  $_FILES['postImage']['name'];
+        move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageUrl));
+        $affectedPost = $adminManager->newPost($postTitle, $postContent, $imageUrl);
 
         if ($affectedPost === false) {
             throw new Exception('Impossible d\'ajouter l\'article !');
@@ -64,7 +66,6 @@ class BackendController
 
         $reportedComments = $adminManager->getReportedComments();
         $comments = $adminManager->getAllComments();
-
 
         require('views/backend/adminCommentsView.php');
     }

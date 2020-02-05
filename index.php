@@ -231,23 +231,40 @@ try {
         $backend->connect();
     }
 
-    elseif (isset($_POST['sendPost'])) {
-        if (!empty($_POST['postTitle']) && !empty($_POST['postContent'])) {
-            $backend->addPost($_POST['postTitle'], $_POST['postContent']);
-        }
-        else {
-            throw new Exception('Tous les champs ne sont pas remplis !');
-        }
-    }
-
     elseif (isset($_POST['sendMessage'])) {
         if (!empty($_POST['messageName']) && !empty($_POST['messageMail']) && !empty($_POST['messageSubject']) && !empty($_POST['messageContent'])) {
             if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $_POST['messageMail'])) {
                 $backend->addMessage($_POST['messageName'], $_POST['messageMail'], $_POST['messageSubject'], $_POST['messageContent']);
             }
             else {
-                throw new Exception('Veuillez renseigner une adresse mail valide.');
-                
+                throw new Exception('Veuillez renseigner une adresse mail valide.');            
+            }
+        }
+        else {
+            throw new Exception('Tous les champs ne sont pas remplis !');
+        }
+    }
+
+    elseif (isset($_POST['sendPost'])) {
+        if (!empty($_POST['postTitle']) && !empty($_POST['postContent'])) {
+            if (isset($_FILES['postImage']) AND $_FILES['postImage']['error'] == 0) {
+                if ($_FILES['postImage']['size'] <= 1000000) {
+                    $infosfichier = pathinfo($_FILES['postImage']['name']);
+                    $extension_upload = $infosfichier['extension'];
+                    $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                    if (in_array($extension_upload, $authorized_extensions)) {
+                        $backend->addPost($_POST['postTitle'], $_POST['postContent'], $_FILES['postImage']);
+                    }
+                    else {
+                        throw new Exception('Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)');                       
+                    }
+                }
+                else {
+                    throw new Exception('L\'image est trop volumineuse. (Taille maximale : 1 Mo)');                    
+                }
+            }
+            else {
+                throw new Exception('Echec lors de l\'envoi du fichier.');           
             }
         }
         else {

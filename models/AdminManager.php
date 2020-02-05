@@ -14,11 +14,11 @@ class AdminManager extends Manager
         return $userinfo;
     }
 
-    public function newPost($postTitle, $postContent)
+    public function newPost($postTitle, $postContent, $imageUrl)
     {
         $db = $this->dbConnect();
-        $post = $db->prepare('INSERT INTO posts(title, content, creation_date) VALUES(?, ?, NOW())');
-        $affectedPost = $post->execute(array($postTitle, $postContent));
+        $post = $db->prepare('INSERT INTO posts(title, content, image_url, creation_date) VALUES(?, ?, ?, NOW())');
+        $affectedPost = $post->execute(array($postTitle, $postContent, $imageUrl));
 
         return $affectedPost;
     }
@@ -95,7 +95,7 @@ class AdminManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ?');
-        $affectedLines = $req->execute(array($_POST['postTitle'], $_POST['postContent'], $postId));
+        $affectedLines = $req->execute(array($_POST['postTitle'], $_POST['postContent']));
 
         return $affectedLines;
     }
