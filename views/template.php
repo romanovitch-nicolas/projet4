@@ -21,6 +21,7 @@
     	<a href="index.php?action=contact">Contact</a>
         <?php if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) { ?>
             <a href="index.php?action=deconnexion">Déconnexion</a><br />
+            <a href="index.php?action=adminNewPost">Écrire un article</a>
             <a href="index.php?action=adminPosts">Gérer les articles</a>
             <a href="index.php?action=adminComments">Gérer les commentaires</a>
             <a href="index.php?action=adminMessages">Messagerie</a>

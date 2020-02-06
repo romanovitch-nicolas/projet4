@@ -24,6 +24,14 @@ class FrontendController
         require('views/frontend/postView.php');
     }
 
+    public function lastPost()
+    {
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
+        $post = $postManager->getLastPost();
+
+        require('views/frontend/homeView.php');
+    }
+
     public function addComment($postId, $author, $comment)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();

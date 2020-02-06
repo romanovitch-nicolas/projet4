@@ -10,7 +10,6 @@ class BackendController
         $_SESSION = array();
         session_destroy();
         setcookie('login', '');
-        setcookie('pass', '');
         header("Location: index.php");
     }
 
@@ -29,7 +28,6 @@ class BackendController
                     if(isset($_POST['autoconnect']))
                     {
                         setcookie('login', $login, time() + 365*24*3600, null, null, false, true);
-                        setcookie('pass', $userinfo["pass"], time() + 365*24*3600, null, null, false, true);
                     }
                 header('Location: index.php?action=adminPosts');
             }
@@ -64,7 +62,6 @@ class BackendController
     {
         $adminManager = new \Nicolas\Projet4\Models\AdminManager();
 
-        $reportedComments = $adminManager->getReportedComments();
         $comments = $adminManager->getAllComments();
 
         require('views/backend/adminCommentsView.php');

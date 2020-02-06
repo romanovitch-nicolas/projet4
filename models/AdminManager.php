@@ -23,34 +23,21 @@ class AdminManager extends Manager
         return $affectedPost;
     }
 
-    public function getReportedComments()
-    {
-        $db = $this->dbConnect();
-        $reportedComments = $db->query('SELECT posts.id AS tableposts_id, posts.title AS tableposts_title,
-                                comments.id, comments.post_id, comments.author, comments.comment, DATE_FORMAT(comments.comment_date, \'%d/%m/%Y, %Hh%i\') AS comment_date_fr
-                                FROM posts, comments
-                                WHERE posts.id = comments.post_id AND comments.report = 1
-                                ORDER BY comment_date
-                                DESC');
-        return $reportedComments;
-    }
-
     public function getAllComments()
     {
         $db = $this->dbConnect();
         $comments = $db->query('SELECT posts.id AS tableposts_id, posts.title AS tableposts_title,
-                                comments.id, comments.post_id, comments.author, comments.comment, DATE_FORMAT(comments.comment_date, \'%d/%m/%Y, %Hh%i\') AS comment_date_fr
+                                comments.id, comments.post_id, comments.author, comments.comment, DATE_FORMAT(comments.comment_date, \'%d/%m/%Y, %Hh%i\') AS comment_date_fr, comments.report
                                 FROM posts, comments
                                 WHERE posts.id = comments.post_id
-                                ORDER BY comment_date
-                                DESC');
+                                ORDER BY comments.report DESC, comment_date DESC');
         return $comments;
     }
 
     public function getAllPosts()
     {
         $db = $this->dbConnect();
-        $posts = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, online FROM posts ORDER BY creation_date DESC');
+        $posts = $db->query('SELECT id, title, content, image_url, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, online FROM posts ORDER BY creation_date DESC');
 
         return $posts;
     }
@@ -95,7 +82,7 @@ class AdminManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ?');
-        $affectedLines = $req->execute(array($_POST['postTitle'], $_POST['postContent']));
+        $affectedLines = $req->execute(array($_POST['postTitle'], $_POST['postContent'], $postId));
 
         return $affectedLines;
     }

@@ -1,12 +1,12 @@
 <?php ob_start(); ?>
 <h1>Gérer les articles</h1>
-<p><a href="index.php?action=adminNewPost">Écrire un article</a></p>
-<br />
+
 <p>Derniers articles :</p>
 
 <table>
 	<tr>
 		<th>Date</th>
+		<th>Image</th>
 		<th>Article</th>
 		<th>Extrait</th>
 		<th>Action</th>
@@ -17,6 +17,7 @@
 	?>
 		<tr>
 			<td><?= $data['creation_date_fr'] ?></td>
+			<td><img src="public/images/<?= $data['image_url'] ?>" /></td>
 			<td><a href="index.php?action=post&amp;id=<?= $data['id'] ?>"><?= $data['title'] ?></a></td>
 			<td><?php 
 		        $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));

@@ -219,13 +219,14 @@ try {
             break;
 
             default:
-                require('views/frontend/homeView.php');
+                $frontend->lastPost();
             break;
         }
     }
     else {
-        require('views/frontend/homeView.php');
+        $frontend->lastPost();
     }
+
 
     if (isset($_POST['connexion'])) {
         $backend->connect();
