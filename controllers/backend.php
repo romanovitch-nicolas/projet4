@@ -1,26 +1,20 @@
 <?php
 namespace Nicolas\Projet4\Controllers;
-require_once('models/AdminManager.php');
+require_once('models/CommentManager.php');
+require_once('models/MessageManager.php');
 require_once('models/PostManager.php');
+require_once('models/UserManager.php');
 
 class BackendController
 {
-    public function disconnect()
-    { 
-        $_SESSION = array();
-        session_destroy();
-        setcookie('login', '');
-        header("Location: index.php");
-    }
-
     public function connect()
     {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+        $userManager = new \Nicolas\Projet4\Models\UserManager();
 
         $login = htmlspecialchars($_POST["login"]);
         $pass = htmlspecialchars($_POST["pass"]);
         if (!empty($login) AND !empty($pass)) {
-            $userinfo = $adminManager->getUserInfo($_POST['login']);
+            $userinfo = $userManager->getUserInfo($_POST['login']);
             $passverif = password_verify($pass, $userinfo['pass']);
             if ($passverif) {
                 session_start();
@@ -40,15 +34,31 @@ class BackendController
         }
     }
 
-    public function addPost($postTitle, $postContent, $imageUrl)
+    public function disconnect()
+    { 
+        $_SESSION = array();
+        session_destroy();
+        setcookie('login', '');
+        header("Location: index.php");
+    }
+
+    public function listPosts()
     {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
+        $posts = $postManager->getAllPosts();
+
+        require('views/backend/adminPostsView.php');
+    }
+
+    public function addPost($postTitle, $postContent)
+    {
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
 
         $postTitle = htmlspecialchars($postTitle);
         $postContent = htmlspecialchars($postContent);
-        $imageUrl =  $_FILES['postImage']['name'];
-        move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageUrl));
-        $affectedPost = $adminManager->newPost($postTitle, $postContent, $imageUrl);
+        $imageName =  $_FILES['postImage']['name'];
+        move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageName));
+        $affectedPost = $postManager->insertPost($postTitle, $postContent, $imageName);
 
         if ($affectedPost === false) {
             throw new Exception('Impossible d\'ajouter l\'article !');
@@ -58,72 +68,7 @@ class BackendController
         }
     }
 
-    public function listComments()
-    {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-
-        $comments = $adminManager->getAllComments();
-
-        require('views/backend/adminCommentsView.php');
-    }
-
-    public function listPosts()
-    {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $posts = $adminManager->getAllPosts();
-
-        require('views/backend/adminPostsView.php');
-    }
-
-    public function addMessage($messageName, $messageMail, $messageSubject, $messageContent)
-    {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-
-        $messageName = htmlspecialchars($messageName);
-        $messageMail = htmlspecialchars($messageMail);
-        $messageSubject = htmlspecialchars($messageSubject);
-        $messageContent = htmlspecialchars($messageContent);
-        $affectedMessage = $adminManager->newMessage($messageName, $messageMail, $messageSubject, $messageContent);
-
-        if ($affectedMessage === false) {
-            throw new Exception('Impossible d\'envoyer le message !');
-        }
-        else {
-            echo 'Votre message à bien été envoyé.';
-        }
-    }
-
-    public function message()
-    {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-
-        $message = $adminManager->getMessage($_GET['id']);
-
-        require('views/backend/messageView.php');
-    }
-
-    public function deleteMessage($messageId)
-    {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $affectedLines = $adminManager->setDeleteMessage($messageId);
-
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de supprimer ce message !');
-        }
-        else {
-            header('Location: index.php?action=adminMessages');
-        }    
-    }
-
-    public function listMessages()
-    {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $messages = $adminManager->getAllMessages();
-
-        require('views/backend/adminMessagesView.php');
-    }
-
-    public function adminEditPost($postId) 
+    public function editPostView($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
 
@@ -134,8 +79,8 @@ class BackendController
 
     public function editPost($postId) 
     {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $affectedLines = $adminManager->setEditPost($postId);
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
+        $affectedLines = $postManager->setEditPost($postId);
 
         if ($affectedLines === false) {
             throw new Exception('Impossible de modifier ce chapitre !');
@@ -147,8 +92,8 @@ class BackendController
 
     public function deletePost($postId)
     {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $affectedLines = $adminManager->setDeletePost($postId);
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
+        $affectedLines = $postManager->setDeletePost($postId);
 
         if ($affectedLines === false) {
             throw new Exception('Impossible de supprimer ce chapitre !');
@@ -160,8 +105,8 @@ class BackendController
 
     public function onlinePost($postId) 
     {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $affectedLines = $adminManager->setOnlinePost($postId);
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
+        $affectedLines = $postManager->setOnlinePost($postId);
 
         if ($affectedLines === false) {
             throw new Exception('Impossible de publier ce chapitre !');
@@ -173,8 +118,8 @@ class BackendController
 
     public function offlinePost($postId) 
     {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $affectedLines = $adminManager->setOfflinePost($postId);
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
+        $affectedLines = $postManager->setOfflinePost($postId);
 
         if ($affectedLines === false) {
             throw new Exception('Impossible de passer ce chapitre dans les brouillons !');
@@ -184,10 +129,19 @@ class BackendController
         }    
     }
 
+    public function listComments()
+    {
+        $commentManager = new \Nicolas\Projet4\Models\CommentManager();
+
+        $comments = $commentManager->getAllComments();
+
+        require('views/backend/adminCommentsView.php');
+    }
+
     public function deleteComment($commentId)
     {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $affectedLines = $adminManager->setDeleteComment($commentId);
+        $commentManager = new \Nicolas\Projet4\Models\CommentManager();
+        $affectedLines = $commentManager->setDeleteComment($commentId);
 
         if ($affectedLines === false) {
             throw new Exception('Impossible de supprimer ce commentaire !');
@@ -197,10 +151,10 @@ class BackendController
         }    
     }
 
-    public function deleteReport($commentId)
+    public function deleteCommentReport($commentId)
     {
-        $adminManager = new \Nicolas\Projet4\Models\AdminManager();
-        $affectedLines = $adminManager->setDeleteReporting($commentId);
+        $commentManager = new \Nicolas\Projet4\Models\CommentManager();
+        $affectedLines = $commentManager->setDeleteReporting($commentId);
 
         if ($affectedLines === false) {
             throw new Exception('Impossible de supprimer le signalement !');
@@ -208,5 +162,35 @@ class BackendController
         else {
             header('Location: index.php?action=adminComments');
         }
+    }
+
+    public function listMessages()
+    {
+        $messageManager = new \Nicolas\Projet4\Models\MessageManager();
+        $messages = $messageManager->getAllMessages();
+
+        require('views/backend/adminMessagesView.php');
+    }
+
+    public function message()
+    {
+        $messageManager = new \Nicolas\Projet4\Models\MessageManager();
+
+        $message = $messageManager->getMessage($_GET['id']);
+
+        require('views/backend/messageView.php');
+    }
+
+    public function deleteMessage($messageId)
+    {
+        $messageManager = new \Nicolas\Projet4\Models\MessageManager();
+        $affectedLines = $messageManager->setDeleteMessage($messageId);
+
+        if ($affectedLines === false) {
+            throw new Exception('Impossible de supprimer ce message !');
+        }
+        else {
+            header('Location: index.php?action=adminMessages');
+        }    
     }
 }

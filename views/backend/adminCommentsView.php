@@ -21,7 +21,7 @@
 			<td><?= htmlspecialchars_decode($data['author']) ?></td>
 			<td><?= nl2br(htmlspecialchars($data['comment'])) ?></td>
 			<td><?php if($data['report'] == 1) { ?>
-					<a href="index.php?action=deleteReport&amp;id=<?= $data['id'] ?>">Approuver</a> /
+					<a href="index.php?action=deleteCommentReport&amp;id=<?= $data['id'] ?>">Approuver</a> /
 				<?php } ?>
 				<a href="index.php?action=deleteComment&amp;id=<?= $data['id'] ?>">Supprimer</a>
 			</td>

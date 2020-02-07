@@ -1,14 +1,23 @@
 <?php
 namespace Nicolas\Projet4\Controllers;
-require_once('models/PostManager.php');
 require_once('models/CommentManager.php');
+require_once('models/MessageManager.php');
+require_once('models/PostManager.php');
 
 class FrontendController
 {
+    public function home()
+    {
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
+        $post = $postManager->getLastPost();
+
+        require('views/frontend/homeView.php');
+    }
+
     public function listPosts()
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
-        $posts = $postManager->getPosts();
+        $posts = $postManager->getOnlinePosts();
 
         require('views/frontend/listPostsView.php');
     }
@@ -24,19 +33,11 @@ class FrontendController
         require('views/frontend/postView.php');
     }
 
-    public function lastPost()
-    {
-        $postManager = new \Nicolas\Projet4\Models\PostManager();
-        $post = $postManager->getLastPost();
-
-        require('views/frontend/homeView.php');
-    }
-
     public function addComment($postId, $author, $comment)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
 
-        $affectedLines = $commentManager->postComment($postId, $author, $comment);
+        $affectedLines = $commentManager->insertComment($postId, $author, $comment);
 
         if ($affectedLines === false) {
             throw new Exception('Impossible d\'ajouter le commentaire !');
@@ -46,7 +47,7 @@ class FrontendController
         }
     }
 
-    public function report($commentId, $postId)
+    public function reportComment($commentId, $postId)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
         $affectedLines = $commentManager->setReporting($commentId);
@@ -56,6 +57,24 @@ class FrontendController
         }
         else {
             header('Location: index.php?action=post&id=' . $postId);
+        }
+    }
+
+    public function addMessage($messageName, $messageMail, $messageSubject, $messageContent)
+    {
+        $messageManager = new \Nicolas\Projet4\Models\MessageManager();
+
+        $messageName = htmlspecialchars($messageName);
+        $messageMail = htmlspecialchars($messageMail);
+        $messageSubject = htmlspecialchars($messageSubject);
+        $messageContent = htmlspecialchars($messageContent);
+        $affectedMessage = $messageManager->insertMessage($messageName, $messageMail, $messageSubject, $messageContent);
+
+        if ($affectedMessage === false) {
+            throw new Exception('Impossible d\'envoyer le message !');
+        }
+        else {
+            echo 'Votre message à bien été envoyé.';
         }
     }
 }
