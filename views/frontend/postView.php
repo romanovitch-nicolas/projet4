@@ -10,7 +10,9 @@
         <?= htmlspecialchars_decode($post['title']) ?>
         <em>le <?= $post['creation_date_fr'] ?></em>
     </h3>
-    <img src="public/images/<?= $post['image_url'] ?>" />
+    <?php if (!empty($post['image_name'])) { ?>
+        <img src="public/images/<?= $post['image_name'] ?>" />
+    <?php } ?>
     <p>
         <?= nl2br(htmlspecialchars_decode($post['content'])) ?>
     </p>

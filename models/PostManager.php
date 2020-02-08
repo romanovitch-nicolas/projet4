@@ -7,7 +7,7 @@ class PostManager extends Manager
     public function getOnlinePosts()
     {
         $db = $this->dbConnect();
-        $posts = $db->query('SELECT id, title, content, image_url, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE online = 1 ORDER BY creation_date');
+        $posts = $db->query('SELECT id, title, content, image_name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE online = 1 ORDER BY creation_date');
 
         return $posts;
     }
@@ -15,7 +15,7 @@ class PostManager extends Manager
     public function getPost($postId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, content, image_url, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE id = ?');
+        $req = $db->prepare('SELECT id, title, content, image_name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE id = ?');
         $req->execute(array($postId));
         $post = $req->fetch();
 
@@ -25,7 +25,7 @@ class PostManager extends Manager
     public function getLastPost()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, content, image_url, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE online = 1 ORDER BY creation_date DESC LIMIT 0, 1');
+        $req = $db->query('SELECT id, title, content, image_name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE online = 1 ORDER BY creation_date DESC LIMIT 0, 1');
         $post = $req->fetch();
 
         return $post;
@@ -34,25 +34,35 @@ class PostManager extends Manager
     public function getAllPosts()
     {
         $db = $this->dbConnect();
-        $posts = $db->query('SELECT id, title, content, image_url, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, online FROM posts ORDER BY creation_date DESC');
+        $posts = $db->query('SELECT id, title, content, image_name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, online FROM posts ORDER BY creation_date DESC');
 
         return $posts;
     }
 
-    public function insertPost($postTitle, $postContent, $imageName)
+    public function insertPost($postTitle, $postContent)
     {
         $db = $this->dbConnect();
-        $post = $db->prepare('INSERT INTO posts(title, content, image_url, creation_date) VALUES(?, ?, ?, NOW())');
-        $affectedPost = $post->execute(array($postTitle, $postContent, $imageName));
+        $post = $db->prepare('INSERT INTO posts(title, content, image_name, creation_date) VALUES(?, ?, ?, NOW())');
+        $affectedPost = $post->execute(array($postTitle, $postContent, ''));
+        $lastId = $db->lastInsertId();
 
-        return $affectedPost;
+        return $lastId;
     }
 
-    public function setEditPost($postId)
+    public function insertImage($postId, $imageName)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE posts SET image_name = ? WHERE id = ?');
+        $image = $req->execute(array($imageName, $postId));
+
+        return $image;
+    }
+
+    public function setEditPost($postId, $postTitle, $postContent)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ?');
-        $affectedLines = $req->execute(array($_POST['postTitle'], $_POST['postContent'], $postId));
+        $affectedLines = $req->execute(array($postTitle, $postContent, $postId));
 
         return $affectedLines;
     }
@@ -72,6 +82,15 @@ class PostManager extends Manager
             
             return $deleteComments;
         }
+    }
+
+    public function setDeleteImage($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE posts SET image_name = "" WHERE id = ?');
+        $deleteImage = $req->execute(array($postId));
+
+        return $deleteImage;
     }
 
     public function setOnlinePost($postId)

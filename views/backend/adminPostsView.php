@@ -17,7 +17,9 @@
 	?>
 		<tr>
 			<td><?= $data['creation_date_fr'] ?></td>
-			<td><img src="public/images/<?= $data['image_url'] ?>" /></td>
+			<td><?php if (!empty($data['image_name'])) { ?>
+				<img src="public/images/<?= $data['image_name'] ?>" />
+				<?php } else { echo '<p><em>Pas d\'image.</em></p>'; } ?></td>
 			<td><a href="index.php?action=post&amp;id=<?= $data['id'] ?>"><?= $data['title'] ?></a></td>
 			<td><?php 
 		        $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));

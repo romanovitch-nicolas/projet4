@@ -56,12 +56,36 @@ class BackendController
 
         $postTitle = htmlspecialchars($postTitle);
         $postContent = htmlspecialchars($postContent);
-        $imageName =  $_FILES['postImage']['name'];
-        move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageName));
-        $affectedPost = $postManager->insertPost($postTitle, $postContent, $imageName);
+
+        if ($_FILES['postImage']['name']) {
+            if ($_FILES['postImage']['size'] <= 2000000) {
+                $infosfichier = pathinfo($_FILES['postImage']['name']);
+                $extension_upload = $infosfichier['extension'];
+                $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                if (in_array($extension_upload, $authorized_extensions)) {
+                    $affectedPost = $postManager->insertPost($postTitle, $postContent);
+                    $infosfichier = pathinfo($_FILES['postImage']['name']);
+                    $imageName = 'post_' . $affectedPost . '.' . $infosfichier['extension'];
+                    move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageName));
+                    $image = $postManager->insertImage($affectedPost, $imageName);
+                }
+                else {
+                    throw new \Exception('Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)');                       
+                }
+            }
+            else {
+                throw new \Exception('L\'image est trop volumineuse. (Taille maximale : 2 Mo)');                    
+            }
+        }
+        else {
+            $affectedPost = $postManager->insertPost($postTitle, $postContent);
+        }
 
         if ($affectedPost === false) {
-            throw new Exception('Impossible d\'ajouter l\'article !');
+            throw new Exception('Impossible d\'ajouter l\'article.');
+        }
+        elseif ($image === false) {
+            throw new Exception('Impossible d\'ajouter l\'image.');
         }
         else {
             header('Location: index.php?action=adminPosts');
@@ -80,10 +104,38 @@ class BackendController
     public function editPost($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
-        $affectedLines = $postManager->setEditPost($postId);
+
+        $postTitle = htmlspecialchars($_POST['postTitle']);
+        $postContent = htmlspecialchars($_POST['postContent']);
+
+        if ($_FILES['postImage']['name']) {
+            if ($_FILES['postImage']['size'] <= 2000000) {
+                $infosfichier = pathinfo($_FILES['postImage']['name']);
+                $extension_upload = $infosfichier['extension'];
+                $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                if (in_array($extension_upload, $authorized_extensions)) {
+                    $affectedLines = $postManager->setEditPost($postId, $postTitle, $postContent);
+                    $infosfichier = pathinfo($_FILES['postImage']['name']);
+                    $imageName = 'post_' . $postId . '.' . $infosfichier['extension'];
+                    move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageName));
+                }
+                else {
+                    throw new \Exception('Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)');                       
+                }
+            }
+            else {
+                throw new \Exception('L\'image est trop volumineuse. (Taille maximale : 2 Mo)');                    
+            }
+        }
+        else {
+            $affectedLines = $postManager->setEditPost($postId, $postTitle, $postContent);
+        }
 
         if ($affectedLines === false) {
-            throw new Exception('Impossible de modifier ce chapitre !');
+            throw new Exception('Impossible de modifier le chapitre.');
+        }
+        elseif ($image === false) {
+            throw new Exception('Impossible de modifier l\'image.');
         }
         else {
            header('Location: index.php?action=post&id=' . $postId);
@@ -101,6 +153,23 @@ class BackendController
         else {
             header('Location: index.php?action=adminPosts');
         }    
+    }
+
+    public function deleteImage($postId)
+    {
+        $postManager = new \Nicolas\Projet4\Models\PostManager();
+        $post = $postManager->getPost($postId);
+        if (!empty($post['image_name'])) {
+            unlink('public/images/' . $post['image_name']);
+            $deleteImage = $postManager->setDeleteImage($postId);
+        }
+
+        if ($deleteImage === false) {
+            throw new \Exception('Impossible de supprimer l\'image !');
+        }
+        else {
+            header('Location: index.php?action=adminEditPost&id=' . $postId);
+        }
     }
 
     public function onlinePost($postId) 
