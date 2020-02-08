@@ -2,7 +2,7 @@
 <h1>Modifier un article</h1>
 <a href="index.php?action=listPosts">Retour à la liste des chapitres</a>
 <a href="index.php?action=deletePost&amp;id=<?= $post['id'] ?>">Supprimer l'article</a>
-<form method='post' action="index.php?action=editPost&amp;id=<?= $post['id'] ?>">
+<form method='post' action="index.php?action=editPost&amp;id=<?= $post['id'] ?>" enctype="multipart/form-data">
 	<p>Titre :</p>
 	<p><input type="text" name="postTitle" value="<?= htmlspecialchars_decode($post['title']) ?>" /></p>
 	<p>Message :</p>
@@ -12,7 +12,7 @@
 		<img src="public/images/<?= $post['image_name'] ?>" />
 		<a href="index.php?action=deleteImage&amp;id=<?= $post['id'] ?>">Supprimer l'image</a>
 	<?php } else { echo '<p><em>Pas d\'image.</em></p>'; } ?>
-	<p><input type="file" name="postImage" />
+	<p><input type="file" name="editImage" />
 	<p><input type="submit" name="savePost" value="Enregistrer" /></p>
 </form>
 <?php $content = ob_get_clean(); ?>

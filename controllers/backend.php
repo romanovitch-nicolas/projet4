@@ -108,16 +108,16 @@ class BackendController
         $postTitle = htmlspecialchars($_POST['postTitle']);
         $postContent = htmlspecialchars($_POST['postContent']);
 
-        if ($_FILES['postImage']['name']) {
-            if ($_FILES['postImage']['size'] <= 2000000) {
-                $infosfichier = pathinfo($_FILES['postImage']['name']);
+        if ($_FILES['editImage']['name']) {
+            if ($_FILES['editImage']['size'] <= 2000000) {
+                $infosfichier = pathinfo($_FILES['editImage']['name']);
                 $extension_upload = $infosfichier['extension'];
                 $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
                 if (in_array($extension_upload, $authorized_extensions)) {
                     $affectedLines = $postManager->setEditPost($postId, $postTitle, $postContent);
-                    $infosfichier = pathinfo($_FILES['postImage']['name']);
+                    $infosfichier = pathinfo($_FILES['editImage']['name']);
                     $imageName = 'post_' . $postId . '.' . $infosfichier['extension'];
-                    move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageName));
+                    move_uploaded_file($_FILES['editImage']['tmp_name'], 'public/images/' . basename($imageName));
                 }
                 else {
                     throw new \Exception('Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)');                       
