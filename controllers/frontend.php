@@ -70,6 +70,22 @@ class FrontendController
         $messageContent = htmlspecialchars($messageContent);
         $affectedMessage = $messageManager->insertMessage($messageName, $messageMail, $messageSubject, $messageContent);
 
+        $header="MIME-Version: 1.0\r\n";
+        $header.='From:"Blog de Jean Forteroche"<noreply@n-romano.fr>'."\n";
+        $header.='Content-Type: text/html; charset="utf-8"'."\n";
+        $header.='Content-Transfer-Encoding: 8bit';
+        $message='
+        <html>
+            <body>
+                <p>Vous avez reçu un message privé sur <a href="http://localhost/projet4/index.php">votre blog</a> !</p>
+                <br />
+                <p><em>Ceci est un mail automatique, merci de ne pas répondre.</em></p>
+            </body>
+        </html>
+        ';
+        mail("nromanovitch@gmail.com", "Test PHP", $message, $header);
+
+
         if ($affectedMessage === false) {
             throw new Exception('Impossible d\'envoyer le message !');
         }
