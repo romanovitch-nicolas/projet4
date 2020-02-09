@@ -4,7 +4,7 @@
 	<form method="POST" action="">
 		<table>
 			<tr>
-				<td><label for="messageName">Nom</label></td>
+				<td><label for="messageName">Nom, Prénom</label></td>
 				<td><input type="text" name="messageName" /></td>
 			</tr>
 			<tr>

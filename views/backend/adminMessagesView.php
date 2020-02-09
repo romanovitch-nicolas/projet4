@@ -9,7 +9,7 @@ if($messageExist) {
 
 <table>
 	<tr>
-		<th>Date</th>
+		<th>Date et heure</th>
 		<th>Nom</th>
 		<th>Email</th>
 		<th>Sujet</th>

@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <h1>Connexion</h1>
 	<br />
-	<form method="POST" action="">
+	<form method="POST" action="index.php?action=connect">
 		<table>
 			<tr>
 				<td><label for="login">Login</label></td>
@@ -12,7 +12,7 @@
 				<td><input type="password" name="pass" /></td>
 			</tr>
 			<tr>
-				<td><label for="autoconnect">Connexion automatique</label></td>
+				<td><label for="autoconnect">Rester connecté</label></td>
 				<td><input type="checkbox" name="autoconnect" /></td>
 			</tr>
 		</table>

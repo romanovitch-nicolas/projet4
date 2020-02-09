@@ -7,9 +7,9 @@ class PostManager extends Manager
     public function getOnlinePosts()
     {
         $db = $this->dbConnect();
-        $posts = $db->query('SELECT id, title, content, image_name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE online = 1 ORDER BY creation_date');
+        $onlinePosts = $db->query('SELECT id, title, content, image_name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE online = 1 ORDER BY creation_date');
 
-        return $posts;
+        return $onlinePosts;
     }
 
     public function getPost($postId)
@@ -26,9 +26,9 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, title, content, image_name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr FROM posts WHERE online = 1 ORDER BY creation_date DESC LIMIT 0, 1');
-        $post = $req->fetch();
+        $lastPost = $req->fetch();
 
-        return $post;
+        return $lastPost;
     }
 
     public function getAllPosts()
@@ -42,8 +42,8 @@ class PostManager extends Manager
     public function insertPost($postTitle, $postContent)
     {
         $db = $this->dbConnect();
-        $post = $db->prepare('INSERT INTO posts(title, content, image_name, creation_date) VALUES(?, ?, ?, NOW())');
-        $affectedPost = $post->execute(array($postTitle, $postContent, ''));
+        $req = $db->prepare('INSERT INTO posts(title, content, image_name, creation_date) VALUES(?, ?, ?, NOW())');
+        $insertPost = $req->execute(array($postTitle, $postContent, ''));
         $lastId = $db->lastInsertId();
 
         return $lastId;
@@ -53,32 +53,32 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE posts SET image_name = ? WHERE id = ?');
-        $image = $req->execute(array($imageName, $postId));
+        $insertImage = $req->execute(array($imageName, $postId));
 
-        return $image;
+        return $insertImage;
     }
 
     public function setEditPost($postId, $postTitle, $postContent)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ?');
-        $affectedLines = $req->execute(array($postTitle, $postContent, $postId));
+        $editPost = $req->execute(array($postTitle, $postContent, $postId));
 
-        return $affectedLines;
+        return $editPost;
     }
 
-    public function setDeletePost($postId)
+    public function deletePost($postId)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM posts WHERE id = ?');
-        $affectedLines = $req->execute(array($postId));
+        $deletePost = $req->execute(array($postId));
 
-        if ($affectedLines === false) {
+        if ($deletePost === false) {
             throw new Exception('Impossible de supprimer le chapitre !');
         }
         else {
-            $deleteComments = $db->prepare('DELETE FROM comments WHERE post_id = ?');
-            $deleteComments->execute(array($postId));
+            $reqTwo = $db->prepare('DELETE FROM comments WHERE post_id = ?');
+            $deleteComments = $reqTwo->execute(array($postId));
             
             return $deleteComments;
         }
@@ -96,18 +96,18 @@ class PostManager extends Manager
     public function setOnlinePost($postId)
     {
         $db = $this->dbConnect();
-        $posts = $db->prepare('UPDATE posts SET online = 1 WHERE id = ?');
-        $affectedLines = $posts->execute(array($postId));
+        $req = $db->prepare('UPDATE posts SET online = 1 WHERE id = ?');
+        $onlinePost = $req->execute(array($postId));
 
-        return $affectedLines;
+        return $onlinePost;
     }
 
     public function setOfflinePost($postId)
     {
         $db = $this->dbConnect();
-        $posts = $db->prepare('UPDATE posts SET online = 0 WHERE id = ?');
-        $affectedLines = $posts->execute(array($postId));
+        $req = $db->prepare('UPDATE posts SET online = 0 WHERE id = ?');
+        $offlinePost = $req->execute(array($postId));
 
-        return $affectedLines;
+        return $offlinePost;
     }
 }

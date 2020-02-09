@@ -34,17 +34,17 @@ class MessageManager extends Manager
     public function insertMessage($messageName, $messageMail, $messageSubject, $messageContent)
     {
         $db = $this->dbConnect();
-        $message = $db->prepare('INSERT INTO messages(name, mail, subject, content, message_date) VALUES(?, ?, ?, ?, NOW())');
-        $affectedMessage = $message->execute(array($messageName, $messageMail, $messageSubject, $messageContent));
+        $req = $db->prepare('INSERT INTO messages(name, mail, subject, content, message_date) VALUES(?, ?, ?, ?, NOW())');
+        $insertMessage = $req->execute(array($messageName, $messageMail, $messageSubject, $messageContent));
 
-        return $affectedMessage;
+        return $insertMessage;
     }
 
-    public function setDeleteMessage($messageId)
+    public function deleteMessage($messageId)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM messages WHERE id = ?');
-        $affectedLines = $req->execute(array($messageId));
+        $deleteMessage = $req->execute(array($messageId));
 
         return $deleteMessage;
     }

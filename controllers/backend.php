@@ -26,11 +26,11 @@ class BackendController
                 header('Location: index.php?action=adminPosts');
             }
             else {
-                throw new Exception('Mauvais identifiant ou mot de passe !');
+                throw new \Exception('Mauvais identifiant ou mot de passe !');
             }
         }
         else {
-            throw new Exception('Tous les champs doivent être complétés !');
+            throw new \Exception('Tous les champs doivent être complétés !');
         }
     }
 
@@ -59,15 +59,15 @@ class BackendController
 
         if ($_FILES['postImage']['name']) {
             if ($_FILES['postImage']['size'] <= 2000000) {
-                $infosfichier = pathinfo($_FILES['postImage']['name']);
-                $extension_upload = $infosfichier['extension'];
+                $fileInfo = pathinfo($_FILES['postImage']['name']);
+                $extension_upload = $fileInfo['extension'];
                 $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
                 if (in_array($extension_upload, $authorized_extensions)) {
-                    $affectedPost = $postManager->insertPost($postTitle, $postContent);
-                    $infosfichier = pathinfo($_FILES['postImage']['name']);
-                    $imageName = 'post_' . $affectedPost . '.' . $infosfichier['extension'];
+                    $insertPost = $postManager->insertPost($postTitle, $postContent);
+                    $fileInfo = pathinfo($_FILES['postImage']['name']);
+                    $imageName = 'post_' . $insertPost . '.' . $fileInfo['extension'];
                     move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageName));
-                    $image = $postManager->insertImage($affectedPost, $imageName);
+                    $image = $postManager->insertImage($insertPost, $imageName);
                 }
                 else {
                     throw new \Exception('Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)');                       
@@ -78,14 +78,14 @@ class BackendController
             }
         }
         else {
-            $affectedPost = $postManager->insertPost($postTitle, $postContent);
+            $insertPost = $postManager->insertPost($postTitle, $postContent);
         }
 
-        if ($affectedPost === false) {
-            throw new Exception('Impossible d\'ajouter l\'article.');
+        if ($insertPost === false) {
+            throw new \Exception('Impossible d\'ajouter l\'article.');
         }
         elseif ($image === false) {
-            throw new Exception('Impossible d\'ajouter l\'image.');
+            throw new \Exception('Impossible d\'ajouter l\'image.');
         }
         else {
             header('Location: index.php?action=adminPosts');
@@ -110,13 +110,13 @@ class BackendController
 
         if ($_FILES['editImage']['name']) {
             if ($_FILES['editImage']['size'] <= 2000000) {
-                $infosfichier = pathinfo($_FILES['editImage']['name']);
-                $extension_upload = $infosfichier['extension'];
+                $fileInfo = pathinfo($_FILES['editImage']['name']);
+                $extension_upload = $fileInfo['extension'];
                 $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
                 if (in_array($extension_upload, $authorized_extensions)) {
-                    $affectedLines = $postManager->setEditPost($postId, $postTitle, $postContent);
-                    $infosfichier = pathinfo($_FILES['editImage']['name']);
-                    $imageName = 'post_' . $postId . '.' . $infosfichier['extension'];
+                    $editPost = $postManager->setEditPost($postId, $postTitle, $postContent);
+                    $fileInfo = pathinfo($_FILES['editImage']['name']);
+                    $imageName = 'post_' . $postId . '.' . $fileInfo['extension'];
                     move_uploaded_file($_FILES['editImage']['tmp_name'], 'public/images/' . basename($imageName));
                     $image = $postManager->insertImage($postId, $imageName);
                 }
@@ -129,10 +129,10 @@ class BackendController
             }
         }
         else {
-            $affectedLines = $postManager->setEditPost($postId, $postTitle, $postContent);
+            $editPost = $postManager->setEditPost($postId, $postTitle, $postContent);
         }
 
-        if ($affectedLines === false) {
+        if ($editPost === false) {
             throw new Exception('Impossible de modifier le chapitre.');
         }
         elseif ($image === false) {
@@ -146,10 +146,10 @@ class BackendController
     public function deletePost($postId)
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
-        $affectedLines = $postManager->setDeletePost($postId);
+        $deletePost = $postManager->deletePost($postId);
 
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de supprimer ce chapitre !');
+        if ($deletePost === false) {
+            throw new \Exception('Impossible de supprimer ce chapitre !');
         }
         else {
             header('Location: index.php?action=adminPosts');
@@ -176,10 +176,10 @@ class BackendController
     public function onlinePost($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
-        $affectedLines = $postManager->setOnlinePost($postId);
+        $onlinePost = $postManager->setOnlinePost($postId);
 
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de publier ce chapitre !');
+        if ($onlinePost === false) {
+            throw new \Exception('Impossible de publier ce chapitre !');
         }
         else {
            header('Location: index.php?action=adminPosts');
@@ -189,10 +189,10 @@ class BackendController
     public function offlinePost($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
-        $affectedLines = $postManager->setOfflinePost($postId);
+        $offlinePost = $postManager->setOfflinePost($postId);
 
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de passer ce chapitre dans les brouillons !');
+        if ($offlinePost === false) {
+            throw new \Exception('Impossible de passer ce chapitre dans les brouillons !');
         }
         else {
            header('Location: index.php?action=adminPosts');
@@ -211,10 +211,10 @@ class BackendController
     public function deleteComment($commentId)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
-        $affectedLines = $commentManager->setDeleteComment($commentId);
+        $deleteComment = $commentManager->deleteComment($commentId);
 
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de supprimer ce commentaire !');
+        if ($deleteComment === false) {
+            throw new \Exception('Impossible de supprimer ce commentaire !');
         }
         else {
            header('Location: index.php?action=adminComments');
@@ -224,10 +224,10 @@ class BackendController
     public function deleteCommentReport($commentId)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
-        $affectedLines = $commentManager->setDeleteReporting($commentId);
+        $deleteReport = $commentManager->setDeleteReporting($commentId);
 
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de supprimer le signalement !');
+        if ($deleteReport === false) {
+            throw new \Exception('Impossible de supprimer le signalement !');
         }
         else {
             header('Location: index.php?action=adminComments');
@@ -255,10 +255,10 @@ class BackendController
     public function deleteMessage($messageId)
     {
         $messageManager = new \Nicolas\Projet4\Models\MessageManager();
-        $affectedLines = $messageManager->setDeleteMessage($messageId);
+        $deleteMessage = $messageManager->deleteMessage($messageId);
 
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de supprimer ce message !');
+        if ($deleteMessage === false) {
+            throw new \Exception('Impossible de supprimer ce message !');
         }
         else {
             header('Location: index.php?action=adminMessages');

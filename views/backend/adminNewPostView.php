@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <h1>Ecrire un article</h1>
-<form method='POST' action='' enctype="multipart/form-data">
+<form method='POST' action='index.php?action=addPost' enctype="multipart/form-data">
 	<p>Titre :</p>
 	<p><input type="text" name="postTitle" /></p>
 	<p>Message :</p>

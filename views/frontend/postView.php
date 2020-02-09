@@ -38,9 +38,10 @@
 while ($comment = $comments->fetch())
 {
 ?>
-    <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?> (<a href="index.php?action=reportComment&amp;comment_id=<?= $comment['id'] ?>&amp;post_id=<?= $comment['post_id'] ?>">Signaler</a>)</p>
+    <p><strong><?= $comment['author'] ?></strong> le <?= $comment['comment_date_fr'] ?>
+    (<a href="index.php?action=reportComment&amp;comment_id=<?= $comment['id'] ?>&amp;post_id=<?= $comment['post_id'] ?>">Signaler</a>)</p>
     <?php if($comment['report'] == 0) { ?> 
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+        <p><?= nl2br($comment['comment']) ?></p>
     <?php }
     else {
         echo '<p><em>Ce commentaire a été signalé</em></p>'; }

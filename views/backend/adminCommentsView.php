@@ -15,7 +15,7 @@
 	while ($data = $comments->fetch())
 	{
 	?>
-		<tr>
+		<tr <?php if($data['report'] == 1) { echo 'class="bold"'; } ?>>
 			<td><?= $data['comment_date_fr'] ?></td>
 			<td><a href="index.php?action=post&amp;id=<?= $data['tableposts_id'] ?>"><?= $data['tableposts_title'] ?></a></td>
 			<td><?= htmlspecialchars_decode($data['author']) ?></td>

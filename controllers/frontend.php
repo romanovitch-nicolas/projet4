@@ -37,10 +37,12 @@ class FrontendController
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
 
-        $affectedLines = $commentManager->insertComment($postId, $author, $comment);
+        $author = htmlspecialchars($author);
+        $comment = htmlspecialchars($comment);
+        $insertComment = $commentManager->insertComment($postId, $author, $comment);
 
-        if ($affectedLines === false) {
-            throw new Exception('Impossible d\'ajouter le commentaire !');
+        if ($insertComment === false) {
+            throw new \Exception('Impossible d\'ajouter le commentaire !');
         }
         else {
             header('Location: index.php?action=post&id=' . $postId);
@@ -50,10 +52,10 @@ class FrontendController
     public function reportComment($commentId, $postId)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
-        $affectedLines = $commentManager->setReporting($commentId);
+        $report = $commentManager->setReporting($commentId);
 
-        if ($affectedLines === false) {
-            throw new Exception('Impossible de signaler le commentaire !');
+        if ($report === false) {
+            throw new \Exception('Impossible de signaler le commentaire !');
         }
         else {
             header('Location: index.php?action=post&id=' . $postId);
@@ -68,7 +70,7 @@ class FrontendController
         $messageMail = htmlspecialchars($messageMail);
         $messageSubject = htmlspecialchars($messageSubject);
         $messageContent = htmlspecialchars($messageContent);
-        $affectedMessage = $messageManager->insertMessage($messageName, $messageMail, $messageSubject, $messageContent);
+        $insertMessage = $messageManager->insertMessage($messageName, $messageMail, $messageSubject, $messageContent);
 
         $header="MIME-Version: 1.0\r\n";
         $header.='From:"Blog de Jean Forteroche"<noreply@n-romano.fr>'."\n";
@@ -85,9 +87,8 @@ class FrontendController
         ';
         mail("nromanovitch@gmail.com", "Nouveau message !", $message, $header);
 
-
-        if ($affectedMessage === false) {
-            throw new Exception('Impossible d\'envoyer le message !');
+        if ($insertMessage === false) {
+            throw new \Exception('Impossible d\'envoyer le message !');
         }
         else {
             echo 'Votre message à bien été envoyé.';
