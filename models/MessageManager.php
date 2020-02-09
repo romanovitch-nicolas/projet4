@@ -7,7 +7,7 @@ class MessageManager extends Manager
     public function getAllMessages()
     {
         $db = $this->dbConnect();
-        $messages = $db->query('SELECT id, name, mail, subject, content, DATE_FORMAT(message_date, \'%d/%m/%Y, %Hh%i\') AS message_date_fr FROM messages ORDER BY message_date DESC');
+        $messages = $db->query('SELECT id, name, mail, subject, content, DATE_FORMAT(message_date, \'%d/%m/%Y, %Hh%i\') AS message_date_fr, message_read FROM messages ORDER BY message_date DESC');
 
         return $messages;
     }
@@ -20,6 +20,15 @@ class MessageManager extends Manager
         $message = $req->fetch();
 
         return $message;
+    }
+
+    public function setReadMessage($messageId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE messages SET message_read = 1 WHERE id = ?');
+        $readMessage = $req->execute(array($messageId));
+
+        return $readMessage;
     }
 
     public function insertMessage($messageName, $messageMail, $messageSubject, $messageContent)

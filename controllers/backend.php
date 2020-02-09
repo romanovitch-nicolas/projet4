@@ -118,6 +118,7 @@ class BackendController
                     $infosfichier = pathinfo($_FILES['editImage']['name']);
                     $imageName = 'post_' . $postId . '.' . $infosfichier['extension'];
                     move_uploaded_file($_FILES['editImage']['tmp_name'], 'public/images/' . basename($imageName));
+                    $image = $postManager->insertImage($postId, $imageName);
                 }
                 else {
                     throw new \Exception('Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)');                       
@@ -246,6 +247,7 @@ class BackendController
         $messageManager = new \Nicolas\Projet4\Models\MessageManager();
 
         $message = $messageManager->getMessage($_GET['id']);
+        $readMessage = $messageManager->setReadMessage($_GET['id']);
 
         require('views/backend/messageView.php');
     }

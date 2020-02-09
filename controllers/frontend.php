@@ -77,13 +77,13 @@ class FrontendController
         $message='
         <html>
             <body>
-                <p>Vous avez reçu un message privé sur <a href="http://localhost/projet4/index.php">votre blog</a> !</p>
+                <p>Vous avez reçu un nouveau message sur <a href="http://localhost/projet4/index.php">votre blog</a> !</p>
                 <br />
                 <p><em>Ceci est un mail automatique, merci de ne pas répondre.</em></p>
             </body>
         </html>
         ';
-        mail("nromanovitch@gmail.com", "Test PHP", $message, $header);
+        mail("nromanovitch@gmail.com", "Nouveau message !", $message, $header);
 
 
         if ($affectedMessage === false) {

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Blog de Jean Forteroche</title>
-        <link href="style.css" rel="stylesheet" /> 
+        <link href="public/style.css" rel="stylesheet" /> 
         <script src="https://cdn.tiny.cloud/1/cwe4o8zjsewx7soze93j3wl2ihp0pb8l09n9fqjy3czfgbu9/tinymce/5/tinymce.min.js" referrerpolicy="origin"/></script>
         <script>
             tinymce.init({
@@ -12,7 +12,7 @@
             toolbar: 'undo redo | copy cut paste | fontselect | fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent | superscript subscript',
             menubar: ''
         });
-  </script>
+        </script>
     </head>
        
     <header>

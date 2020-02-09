@@ -19,7 +19,7 @@ if($messageExist) {
 	while ($data = $messages->fetch())
 	{
 	?>
-		<tr>
+		<tr <?php if($data['message_read'] == 0) { echo 'class="bold"'; } ?>>
 			<td><?= $data['message_date_fr'] ?></td>
 			<td><?= $data['name'] ?></td>
 			<td><?= $data['mail'] ?></td>
