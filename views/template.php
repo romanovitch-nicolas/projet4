@@ -16,18 +16,26 @@
     </head>
        
     <header>
-    	<a href="index.php">Accueil</a>
-    	<a href="index.php?action=listPosts">Liste des chapitres</a>
-    	<a href="index.php?action=contact">Contact</a>
-        <?php if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) { ?>
-            <a href="index.php?action=disconnect">Déconnexion</a><br />
-            <a href="index.php?action=adminNewPost">Écrire un article</a>
-            <a href="index.php?action=adminPosts">Gérer les articles</a>
-            <a href="index.php?action=adminComments">Gérer les commentaires</a>
-            <a href="index.php?action=adminMessages">Messagerie</a>
-    	<?php } else { ?>
-            <a href="index.php?action=connexion">Connexion</a>
-        <?php } ?>
+        <nav>
+            <ul>
+            	<li><a href="index.php">Accueil</a></li>
+            	<li><a href="index.php?action=listPosts">Liste des chapitres</a></li>
+            	<li><a href="index.php?action=contact">Contact</a></li>
+                <?php if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) { ?>
+                    <li class="dropmenu"><a href="#">Espace Administrateur ▼</a>
+                        <ul class="submenu">
+                            <li><a href="index.php?action=adminNewPost">Écrire un article</a></li>
+                            <li><a href="index.php?action=adminPosts">Gérer les articles</a></li>
+                            <li><a href="index.php?action=adminComments">Gérer les commentaires</a></li>
+                            <li><a href="index.php?action=adminMessages">Messagerie</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.php?action=disconnect">Déconnexion</a></li>
+            	<?php } else { ?>
+                    <li><a href="index.php?action=connexion">Connexion</a></li>
+                <?php } ?>
+            </ul>
+        </nav>
     </header>
 
     <body>

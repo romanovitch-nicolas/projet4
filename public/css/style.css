@@ -1,3 +1,19 @@
-.bold {
+	/* Général */
+
+.bold
+{
 	font-weight: bold;
+}
+
+
+	/* Menu de navigation */
+
+.submenu
+{
+	display: none;
+}
+
+.dropmenu:hover .submenu
+{
+	display: block;
 }
