@@ -1,19 +1,700 @@
 	/* Général */
 
+html
+{
+	background-color: #F1F1F1;
+	scroll-behavior: smooth;
+	height: 100%;
+}
+
+body
+{
+	font-family: 'Courier Prime', monospace, sans-serif;
+	text-align: center;
+	margin: 0;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	position: relative;
+	min-height: 100%;
+	box-sizing: border-box;
+}
+
+a
+{
+	text-decoration: none;
+	color: #000;
+}
+
+img
+{
+	max-width: 100%;
+}
+
+h1
+{
+	background-color: #FFF;
+	background-image: url("https://nsm09.casimages.com/img/2020/02/13//20021305511025240716644885.jpg");
+	background-size: cover;
+	line-height: 350%;
+	border-bottom: 1px solid #000;
+	font-size: 50px;
+	margin-block-start: 0;
+	padding-top: 100px;
+	margin-top: -100px;
+}
+
+label
+{
+	cursor: pointer;
+}
+
+table
+{
+	margin: auto;
+}
+
+h1, h2, label
+{
+	font-family: 'Indie Flower', 'Courier Prime', monospace, sans-serif;
+}
+
+form
+{
+	font-size: 20px;
+}
+
+input, textarea
+{
+	font-family: 'Courier Prime', monospace, sans-serif;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea
+{
+	padding: 4px;
+	font-size: 14px;
+	width: 300px;
+}
+
+input[type="submit"]
+{
+	line-height: normal;
+	margin-bottom: 10px;
+}
+
 .bold
 {
 	font-weight: bold;
 }
 
+.column
+{
+	display: flex;
+}
+
+.button
+{
+	padding: 10px;
+	line-height: 250%;
+	background-color: #353232;
+	border-radius: 3px;
+	color: #FFF;
+	box-shadow: 1px 1px 2px #000;
+	border: none;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.date
+{
+	font-size: 14px;
+	font-style: italic;
+}
+
 
 	/* Menu de navigation */
+
+header
+{
+	height: 100px;
+	display: flex;
+	align-items: baseline;
+	box-shadow: 0px 1px 5px;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.logo
+{
+	font-family: 'Indie Flower', 'Courier Prime', monospace, sans-serif;
+	font-size: 30px;
+	width: 350px;
+	margin-left: 20px;
+}
+
+nav
+{
+	width: 100%;
+}
+
+nav ul
+{
+	list-style-type: none;
+	display: flex;
+	justify-content: space-between;
+
+}
+
+nav ul div
+{
+	display: flex;
+	margin-right: 10px;
+}
+
+nav ul li
+{
+	margin: 10px;
+}
+
+nav a:hover
+{
+	font-weight: bold;
+}
 
 .submenu
 {
 	display: none;
+	padding-inline-start: 0;
+	text-align: left;
+	position: relative;
+	top: 15px;
+}
+
+.submenu li
+{
+	margin: 0;
+	background-color: #FFF;
+	border-bottom: 1px solid #BEBEBE;
+	padding: 10px;
+}
+
+.submenu li:first-child
+{
+	border-radius: 3px 3px 0px 0px;
+}
+
+.submenu li:last-child
+{
+	border-radius: 0px 0px 3px 3px;
+	border: none;
 }
 
 .dropmenu:hover .submenu
 {
 	display: block;
+}
+
+
+	/* Pied de page */
+
+footer
+{
+	height: 100px;
+	background-color: #FFF;
+	border-top: 1px solid #000;
+	align-items: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+footer i
+{
+	margin-right: 10px;
+	cursor: pointer;
+	color: #353232;
+}
+
+
+	/* Accueil */
+
+#welcome
+{
+	margin-top: -100px;
+	position: relative;
+}
+
+.homedescription
+{
+	position: absolute;
+	top: 25%;
+	left: 1%;
+	right: 1%;
+}
+
+.homedescription p
+{
+	font-family: 'Indie Flower', 'Courier Prime', monospace, sans-serif;
+	font-size: 3vw;
+}
+
+.homedescription .button:last-child
+{
+	margin-left: 20px;
+}
+
+#welcome, #synopsis, #author, #lastpost
+{
+	margin-right: auto;
+	margin-left: auto;
+	padding-bottom: 50px;
+}
+
+#welcome p, #synopsis p, #author p
+{
+	margin: auto;
+	max-width: 85%;
+}
+
+#lastpost p
+{
+	margin: auto;
+}
+
+#author
+{
+	max-width: 850px;
+	margin-right: 0;
+}
+
+#author p
+{
+	text-align: left;
+	margin-bottom: 15px;
+}
+
+#author img
+{
+	width: 350px;
+	float: left;
+	margin: 20px;
+	border-radius: 3px;
+}
+
+#lastpost h2
+{
+	margin-right: 20px;
+}
+
+.lastpost
+{
+	width: 400px;
+	margin-right: 20px;
+	border: 1px solid #BEBEBE;
+	border-radius: 3px;
+	padding-bottom: 10px;
+	background-color: #FFF;
+	text-align: left;
+}
+
+.lastpost img
+{
+	width: 100%;
+	border-radius: 3px 3px 0px 0px;
+}
+
+.lastpost h3
+{
+	max-width: 90%;
+	font-size: 18px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.lastpost p
+{
+	max-width: 90%;
+	font-size: 14px;
+}
+
+.lastpost .button
+{
+	margin-right: 80px;
+}
+
+.lastpost div
+{
+	display: flex;
+}
+
+
+	/* Liste des chapitres */
+
+#listposts
+{
+	text-align: left;
+	max-width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 40px;
+	border-left: 2px solid #000;
+	padding-left: 15px;
+}
+
+
+	/* Chapitre */
+
+#postcontent, #postcomments
+{
+	text-align: left;
+	max-width: 85%;
+	margin: auto;
+}
+
+#postcontent div
+{
+	margin-top: 20px;
+}
+
+#postcontent img
+{
+	max-height: 500px;
+}
+
+#postcomments textarea
+{
+	width: 302px;
+	height: 100px;
+	line-height: 150%;
+}
+
+#postcomments p
+{
+	font-family: 'Indie Flower', 'Courier Prime', monospace, sans-serif;
+}
+
+#postcomments span
+{
+	font-family: 'Courier Prime', monospace, sans-serif;
+}
+
+#postcomments strong, #postcomments a
+{
+	font-size: 18px;
+}
+
+#postcomments a
+{
+	color: #FF3636;
+	margin-left: 5px;
+}
+
+#comment
+{
+	background-color: #FFF;
+	padding: 5px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+
+#comment:last-child
+{
+	margin-bottom: 30px;
+}
+
+	/* Contact */
+
+#contact
+{
+	margin-top: 5%;
+	margin-right: 110px;
+}
+
+#contact textarea
+{
+	width: 302px;
+	height: 150px;
+	line-height: 150%;
+}
+
+#contact input[type="submit"]
+{
+	margin-left: 100px;
+}
+
+
+	/* Ecrire un chapitre */
+
+#newpost tr td:last-child
+{
+	text-align: left;
+}
+
+#post
+{
+	height: 380px;
+}
+
+#tinymce
+{
+	font-family: 'Courier Prime', monospace, sans-serif;
+	background-color: #FFF;
+	text-align: left;
+	padding: 10px;
+}
+
+
+	/* Modifier un chapitre */
+
+#editpost table
+{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+#editpost tr td:last-child
+{
+	text-align: left;
+}
+
+#editpost img
+{
+	max-width: 330px;
+}
+
+#editpost td a
+{
+	font-size: 14px;
+}
+
+#editpost label
+{
+	margin-right: 10px;
+}
+
+#editpost input[type="submit"]
+{
+	margin-bottom: 30px;
+}
+
+
+	/* Gérer les chapitres */
+
+#adminposts table
+{
+	border-collapse: collapse;
+	margin-bottom: 33px;
+}
+
+#adminposts tr
+{
+	background-color: #FFF;
+	height: 40px;
+	border-bottom: 1px solid #BEBEBE;
+}
+
+#adminposts tr:hover
+{
+	background-color: #BEBEBE;
+}
+
+#adminposts tr:first-child:hover
+{
+	background-color: #FFF;
+}
+
+#adminposts td
+{
+	height: 150px;
+	padding: 10px;
+}
+
+#adminposts img
+{
+	max-width: 200px;
+	max-height: 150px;
+}
+
+#adminposts td:nth-child(2), #adminposts td:nth-child(3)
+{
+	min-width: 90px;
+	max-width: 200px;
+}
+
+#adminposts td:nth-child(4)
+{
+	min-width: 200px;
+	max-width: 600px;
+	font-size: 14px;
+}
+
+#adminposts td:last-child
+{
+	min-width: 90px;
+}
+
+#adminposts i
+{
+	color: #353232;
+}
+
+
+	/* Gérer les commentaires */
+
+#admincomments table
+{
+	border-collapse: collapse;
+	margin-bottom: 33px;
+}
+
+#admincomments tr
+{
+	background-color: #FFF;
+	height: 40px;
+	border-bottom: 1px solid #BEBEBE;
+}
+
+#admincomments tr:hover
+{
+	background-color: #BEBEBE;
+}
+
+#admincomments tr:first-child:hover
+{
+	background-color: #FFF;
+}
+
+#admincomments td
+{
+	padding: 10px;
+}
+
+#admincomments td:nth-child(2)
+{
+	max-width: 200px;
+	min-width: 90px;
+}
+
+#admincomments td:nth-child(3)
+{
+	max-width: 200px;
+	min-width: 90px;
+	font-size: 14px;
+}
+
+#admincomments td:nth-child(4)
+{
+	min-width: 200px;
+	max-width: 600px;
+	font-size: 14px;
+	text-align: left;
+}
+
+#admincomments td:last-child
+{
+	min-width: 90px;
+}
+
+#admincomments i
+{
+	color: #353232;
+}
+
+.fa-exclamation-circle
+{
+	color: #FF3636 !important;
+}
+
+.fa-check
+{
+	color: #289d59 !important;
+}
+
+
+	/* Messagerie */
+
+#adminmessages table
+{
+	border-collapse: collapse;
+	margin-bottom: 33px;
+}
+
+#adminmessages tr
+{
+	background-color: #FFF;
+	height: 40px;
+	border-bottom: 1px solid #BEBEBE;
+}
+
+#adminmessages tr:hover
+{
+	background-color: #BEBEBE;
+}
+
+#adminmessages tr:first-child:hover
+{
+	background-color: #FFF;
+}
+
+#adminmessages td
+{
+	padding: 10px;
+}
+
+#adminmessages i
+{
+	color: #353232;
+}
+
+#adminmessages .fa-exclamation-circle
+{
+	color: #3E64FF !important;
+}
+
+#adminmessages td:last-child
+{
+	min-width: 90px;
+}
+
+#adminmessages td:nth-child(2), #adminmessages td:nth-child(3), #adminmessages td:nth-child(4)
+{
+	min-width: 150px;
+	max-width: 400px;
+}
+
+
+	/* Message */
+
+#message
+{
+	text-align: left;
+	max-width: 85%;
+	background-color: #FFF;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 10px;
+    margin-top: 30px;
+	padding: 5px;
+    padding-left: 15px;
+}
+
+
+	/* Connexion */
+
+#connect tr td:last-child
+{
+	text-align: left;
+}
+
+#connect input[type="text"], #connect input[type="password"]
+{
+	width: 200px;
+}
+
+#connect input[type="checkbox"]
+{
+	margin-left: 10px;
 }

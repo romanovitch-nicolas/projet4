@@ -1,14 +1,26 @@
 <?php ob_start(); ?>
 <h1>Ecrire un article</h1>
-<form method='POST' action='index.php?action=addPost' enctype="multipart/form-data">
-	<p>Titre :</p>
-	<p><input type="text" name="postTitle" /></p>
-	<p>Message :</p>
-	<textarea name="postContent" id="post"></textarea><br />
-	<p>Image :</p>
-	<p><input type="file" name="postImage" />
-	<p><input type="submit" name="sendPost" value="Enregistrer" /></p>
-</form>
+
+<section id="newpost">
+	<form method="POST" action="index.php?action=addPost" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td><label for="postTitle">Titre</label></td>
+				<td><input type="text" name="postTitle" /></td>
+			</tr>
+			<tr>
+				<td><label for="postContent">Message</label></td>
+				<td><textarea name="postContent" id="post"></textarea></td>
+			</tr>
+			<tr>
+				<td><label for="postImage" title="Taille maximale : 2 Mo. | Formats d'image acceptés : .jpg, .jpeg, .png, .gif.">Image*</label></td>
+				<td><input type="file" name="postImage" /></td>
+			</tr>
+		</table>
+		<input type="submit" class="button" name="sendPost" value="Enregistrer" />
+	</form>
+</section>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('views/template.php'); ?>

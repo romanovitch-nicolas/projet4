@@ -1,29 +1,43 @@
 <?php ob_start(); ?>
 <h1>Billet simple pour l'Alaska</h1>
-<p>Derniers chapitres publiés :</p>
+
+<?php
+$postExist = $posts->rowCount();
+if($postExist) {
+?>
 
 <?php
 while ($data = $posts->fetch())
 {
 ?>
-<div>
+<section id="listposts">
     <h3>
-        <?= htmlspecialchars_decode($data['title']) ?>
-        <em>le <?= $data['creation_date_fr'] ?></em>
+        <?= htmlspecialchars_decode($data['title']) ?><br />
+        <span class="date">le <?= $data['creation_date_fr'] ?></span>
     </h3>
         
     <p>
         <?php 
         $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));
-        echo substr($postDescription, 0, 200) . '...';
+        echo substr($postDescription, 0, 500) . '...';
         ?>
     </p>
-    <p><em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Voir le chapitre</a></em></p>
-</div>
+    <p><a class="button" href="index.php?action=post&amp;id=<?= $data['id'] ?>">Voir le chapitre</a></p>
+
+    <?php
+    }
+    $posts->closeCursor();
+    ?>
+</section>
+
 <?php
-}
-$posts->closeCursor();
+} else {
 ?>
+    <p><em>Pas de chapitre disponible.</em></p>
+<?php 
+}
+?>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('views/template.php'); ?>

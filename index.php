@@ -233,7 +233,7 @@ try {
                 }
             break;
 
-            /*case 'sendMessage':
+            case 'sendMessage':
                 if (!empty($_POST['messageName']) && !empty($_POST['messageMail']) && !empty($_POST['messageSubject']) && !empty($_POST['messageContent'])) {
                     $nameLength = strlen($_POST['messageName']);
                     $mailLength = strlen($_POST['messageMail']);
@@ -264,7 +264,7 @@ try {
                 else {
                     throw new Exception('Tous les champs ne sont pas remplis !');
                 }
-            break;*/
+            break;
 
             case 'adminMessages':
                 if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
@@ -314,39 +314,6 @@ try {
     }
     else {
         $frontend->home();
-    }
-
-    if (isset($_POST['sendMessage'])) {
-        if (!empty($_POST['messageName']) && !empty($_POST['messageMail']) && !empty($_POST['messageSubject']) && !empty($_POST['messageContent'])) {
-            $nameLength = strlen($_POST['messageName']);
-            $mailLength = strlen($_POST['messageMail']);
-            $subjectLength = strlen($_POST['messageSubject']);
-
-            if($nameLength <= 255) {
-                if($mailLength <= 255) {
-                    if($subjectLength <= 255) {
-                        if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $_POST['messageMail'])) {
-                            $frontend->addMessage($_POST['messageName'], $_POST['messageMail'], $_POST['messageSubject'], $_POST['messageContent']);
-                        }
-                        else {
-                            throw new Exception('Veuillez renseigner une adresse mail valide.');
-                        }
-                    }
-                    else {
-                        throw new Exception('Le sujet ne doit pas dépasser 255 caractères.');
-                    }
-                }
-                else {
-                    throw new Exception('Votre email ne doit pas dépasser 255 caractères.');
-                }
-            }
-            else {
-                throw new Exception('Votre nom ne doit pas dépasser 255 caractères.');
-            }
-        }
-        else {
-            throw new Exception('Tous les champs ne sont pas remplis !');
-        }
     }
 }
 

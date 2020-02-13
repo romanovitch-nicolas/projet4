@@ -69,7 +69,7 @@ class FrontendController
         $messageName = htmlspecialchars($messageName);
         $messageMail = htmlspecialchars($messageMail);
         $messageSubject = htmlspecialchars($messageSubject);
-        $messageContent = htmlspecialchars($messageContent);
+        $messageContent = htmlspecialchars($messageContent);   
         $insertMessage = $messageManager->insertMessage($messageName, $messageMail, $messageSubject, $messageContent);
 
         $header="MIME-Version: 1.0\r\n";
@@ -80,6 +80,10 @@ class FrontendController
         <html>
             <body>
                 <p>Vous avez reçu un nouveau message sur <a href="http://localhost/projet4/index.php">votre blog</a> !</p>
+                <br />
+                <p>De : ' . $messageName . ' <em>(' . $messageMail . ')</em></p>
+                <p>Sujet : ' . $messageSubject . '</p>
+                <p>' . $messageContent . '</p>
                 <br />
                 <p><em>Ceci est un mail automatique, merci de ne pas répondre.</em></p>
             </body>

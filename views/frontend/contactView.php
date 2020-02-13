@@ -1,7 +1,8 @@
 <?php ob_start(); ?>
 <h1>Contact</h1>
-	<br />
-	<form method="POST" action="">
+
+<section id="contact">
+	<form method="POST" action="index.php?action=sendMessage">
 		<table>
 			<tr>
 				<td><label for="messageName">Nom, Prénom</label></td>
@@ -20,9 +21,9 @@
 				<td><textarea name="messageContent"></textarea></td>
 			</tr>
 		</table>
-		<br />
-		<input type="submit" name="sendMessage" value="Envoyer" />
+		<input type="submit" class="button" name="sendMessage" value="Envoyer" />
 	</form>
+</section>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('views/template.php'); ?>

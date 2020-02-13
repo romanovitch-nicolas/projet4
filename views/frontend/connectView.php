@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
 <h1>Connexion</h1>
-	<br />
+
+<section id="connect">
 	<form method="POST" action="index.php?action=connect">
 		<table>
 			<tr>
@@ -17,8 +18,9 @@
 			</tr>
 		</table>
 		<br />
-		<input type="submit" name="connexion" value="Se connecter" />
+		<input type="submit" class="button" name="connexion" value="Se connecter" />
 	</form>
+</section>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('views/template.php'); ?>
