@@ -26,7 +26,7 @@ if($messageExist) {
 				<td><a class="bold" href="index.php?action=message&amp;id=<?= $data['id'] ?>"><?= $data['subject'] ?></a></td>
 				<td><?= $data['name'] ?></td>
 				<td><?= $data['mail'] ?></td>
-				<td><a href="index.php?action=deleteMessage&amp;id=<?= $data['id'] ?>"><i class="fas fa-trash"></i></a></td>
+				<td><a href="index.php?action=deleteMessage&amp;id=<?= $data['id'] ?>" title="Supprimer" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}"><i class="fas fa-trash"></i></a></td>
 			</tr>
 		<?php
 		}

@@ -2,7 +2,7 @@
 <h1>Modifier un article</h1>
 
 <a class="button" href="index.php?action=listPosts">Retour à la liste des chapitres</a>
-<a class="button" href="index.php?action=deletePost&amp;id=<?= $post['id'] ?>">Supprimer le chapitre</a>
+<a class="button" href="index.php?action=deletePost&amp;id=<?= $post['id'] ?>" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}">Supprimer le chapitre</a>
 
 <section id="editpost">
 	<form method='post' action="index.php?action=editPost&amp;id=<?= $post['id'] ?>" enctype="multipart/form-data">
@@ -23,9 +23,12 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><a class="button" href="#">Modifier l'image</a>
-					<a class="button" href="index.php?action=deleteImage&amp;id=<?= $post['id'] ?>">Supprimer l'image</a><br />
-					<input type="file" name="editImage" /></td>
+				<td><a id="editimagebutton" class="button" href="#"><?php if (!empty($post['image_name'])) {echo 'Modifier l\'image';} else {echo 'Ajouter une image' ;} ?></a>
+					<?php if (!empty($post['image_name'])) { ?>
+						<a class="button" href="index.php?action=deleteImage&amp;id=<?= $post['id'] ?>" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}">Supprimer l'image</a>
+					<?php } ?>
+					<br />
+					<input id="editimageinput" class="invisible" type="file" name="editImage" /></td>
 			</tr>
 		</table>
 		

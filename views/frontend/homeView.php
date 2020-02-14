@@ -5,7 +5,7 @@
     <div class="homedescription">
         <p>Bienvenue sur mon blog !</p>
         <p>Venez découvrir mon dernier livre "<strong>Billet simple pour l'Alaska</strong>"</p><br />
-        <a class="button" href="#synopsis">Découvrir le livre</a><a class="button" href="index.php?action=listPosts">Lire le livre</a>
+        <a id="downbutton" class="button" href="#synopsis">Découvrir le livre</a><a class="button" href="index.php?action=listPosts">Lire le livre</a>
     </div>
 </section>
 

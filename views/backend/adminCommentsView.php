@@ -30,7 +30,7 @@ if($commentExist) {
 				<td><?php if($data['report'] == 1) { ?>
 						<a href="index.php?action=deleteCommentReport&amp;id=<?= $data['id'] ?>" title="Approuver"><i class="fas fa-check"></i></a>
 					<?php } ?>
-					<a href="index.php?action=deleteComment&amp;id=<?= $data['id'] ?>" title="Supprimer"><i class="fas fa-trash"></i></a>
+					<a href="index.php?action=deleteComment&amp;id=<?= $data['id'] ?>" title="Supprimer" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}"><i class="fas fa-trash"></i></a>
 				</td>
 			</tr>
 		<?php

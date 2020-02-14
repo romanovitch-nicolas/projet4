@@ -31,7 +31,7 @@ if($postExist) {
 		        	?></td>
 				<td>
 					<a href="index.php?action=adminEditPost&amp;id=<?= $data['id'] ?>" title="Modifier"><i class="fas fa-edit"></i></a>
-					<a href="index.php?action=deletePost&amp;id=<?= $data['id'] ?>" title="Supprimer"><i class="fas fa-trash"></i></a>
+					<a href="index.php?action=deletePost&amp;id=<?= $data['id'] ?>" title="Supprimer" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}"><i class="fas fa-trash"></i></a>
 					<?php if($data['online'] == 0) { ?>
 						<a href="index.php?action=onlinePost&amp;id=<?= $data['id'] ?>" title="Rendre public"><i class="fas fa-eye-slash"></i></a>
 					<?php } else { ?>
