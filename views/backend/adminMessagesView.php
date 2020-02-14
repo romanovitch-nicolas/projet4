@@ -1,3 +1,5 @@
+<?php $title = "Messagerie" ?>
+
 <?php ob_start(); ?>
 <h1>Messagerie</h1>
 

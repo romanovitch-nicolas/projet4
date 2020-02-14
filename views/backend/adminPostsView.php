@@ -1,5 +1,7 @@
+<?php $title = "Gestion des chapitres" ?>
+
 <?php ob_start(); ?>
-<h1>Gérer les articles</h1>
+<h1>Gestion des chapitres</h1>
 
 <?php
 $postExist = $posts->rowCount();

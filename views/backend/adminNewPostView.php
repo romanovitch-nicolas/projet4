@@ -1,5 +1,7 @@
+<?php $title = "Ecrire un chapitre" ?>
+
 <?php ob_start(); ?>
-<h1>Ecrire un article</h1>
+<h1>Ecrire un chapitre</h1>
 
 <section id="newpost">
 	<form method="POST" action="index.php?action=addPost" enctype="multipart/form-data">
@@ -9,7 +11,7 @@
 				<td><input type="text" name="postTitle" /></td>
 			</tr>
 			<tr>
-				<td><label for="postContent">Message</label></td>
+				<td><label for="postContent">Texte</label></td>
 				<td><textarea name="postContent" id="post"></textarea></td>
 			</tr>
 			<tr>

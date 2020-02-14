@@ -6,9 +6,27 @@ class App {
 		this.editImageButton = document.querySelector("#editimagebutton");
 		this.editImageInput = document.querySelector("#editimageinput");
 
+		this.tinyInit();
 		this.headerColor(this.header);
 		if(this.downButton !== null) { this.scrollCorrection(); }
 		if(this.editImageButton !== null) { this.displayFileInput(); }
+	}
+
+	tinyInit() {
+		// Initialisation de l'éditeur de texte
+        tinymce.init({
+        force_br_newlines : true,
+        force_p_newlines : false,
+        forced_root_block : '',
+        content_css: ['https://fonts.googleapis.com/css?family=Indie+Flower&display=swap',
+            'https://fonts.googleapis.com/css?family=Courier+Prime&display=swap',
+            'public/css/style.css'],
+        selector: '#post',
+        statusbar: false,
+        toolbar: 'undo redo | copy cut paste | fontselect | fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent | superscript subscript',
+        menubar: '',
+        font_formats: "Arial=arial,helvetica,sans-serif;" + "Arial Black=arial black,avant garde;" + "Comic Sans MS=comic sans ms,sans-serif;" + "Courier Prime=Courier Prime, courier new, courier;" + "Georgia=georgia,palatino;" +  "Helvetica=helvetica;" + "Impact=impact,chicago;" + "Indie Flower=Indie Flower, cursive;" + "Symbol=symbol;" + "Tahoma=tahoma,arial,helvetica,sans-serif;" + "Terminal=terminal,monaco;" + "Times New Roman=times new roman,times;" + "Trebuchet MS=trebuchet ms,geneva;" + "Verdana=verdana,geneva;"
+        });
 	}
 
 	headerColor(header) {

@@ -1,3 +1,5 @@
+<?php $title = "Contact" ?>
+
 <?php ob_start(); ?>
 <h1>Contact</h1>
 

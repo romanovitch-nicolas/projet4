@@ -1,3 +1,5 @@
+<?php $title = htmlspecialchars_decode($post['title']) ?>
+
 <?php ob_start(); ?>        
 <h1>Billet simple pour l'Alaska</h1>
 

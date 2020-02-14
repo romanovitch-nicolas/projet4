@@ -1,5 +1,7 @@
+<?php $title = "Modifier un chapitre" ?>
+
 <?php ob_start(); ?>
-<h1>Modifier un article</h1>
+<h1>Modifier un chapitre</h1>
 
 <a class="button" href="index.php?action=listPosts">Retour à la liste des chapitres</a>
 <a class="button" href="index.php?action=deletePost&amp;id=<?= $post['id'] ?>" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}">Supprimer le chapitre</a>

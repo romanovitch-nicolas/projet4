@@ -1,3 +1,5 @@
+<?php $title = "Jean Forteroche" ?>
+
 <?php ob_start(); ?>
 
 <section id="welcome">

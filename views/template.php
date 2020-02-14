@@ -2,10 +2,18 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Blog de Jean Forteroche</title>
+        <link rel="icon" href="public/images/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Courier+Prime&display=swap" rel="stylesheet">
         <link href="public/css/style.css" rel="stylesheet" /> 
+        <title><?= $title . " - Billet simple pour l'Alaska" ?></title>
+        <meta name="description" content="« Billet simple pour l'Alaska », le dernier livre de Jean Forteroche, est disponible en ligne gratuitement et en intégralité. Venez le découvrir !" />
+        <meta property="og:title" content="Jean Forteroche - Billet simple pour l'Alaska" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="www.projet4.n-romano.fr" />
+        <meta property="og:image" content="https://nsm09.casimages.com/img/2020/02/14//20021405550325240716645995.jpg" />
+        <meta property="og:description" content="« Billet simple pour l'Alaska », le dernier livre de Jean Forteroche, est disponible en ligne gratuitement et en intégralité. Venez le découvrir !" />
     </head>
        
     <header>
@@ -37,26 +45,11 @@
     </body>
 
     <footer>
-        <p>Blog de Jean Forteroche | Mentions légales</p>
+        <p>Billet simple pour l'Alaska | Mentions légales</p>
         <p><i class="fab fa-2x fa-facebook-square"></i><i class="fab fa-2x fa-twitter-square"></i><i class="fab fa-2x fa-instagram-square"></i></p>
     </footer>
 
     <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/cwe4o8zjsewx7soze93j3wl2ihp0pb8l09n9fqjy3czfgbu9/tinymce/5/tinymce.min.js" referrerpolicy="origin"/></script>
-    <script>
-        tinymce.init({
-        force_br_newlines : true,
-        force_p_newlines : false,
-        forced_root_block : '',
-        content_css: ['https://fonts.googleapis.com/css?family=Indie+Flower&display=swap',
-            'https://fonts.googleapis.com/css?family=Courier+Prime&display=swap',
-            'public/css/style.css'],
-        selector: '#post',
-        statusbar: false,
-        toolbar: 'undo redo | copy cut paste | fontselect | fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent | superscript subscript',
-        menubar: '',
-        font_formats: "Arial=arial,helvetica,sans-serif;" + "Arial Black=arial black,avant garde;" + "Comic Sans MS=comic sans ms,sans-serif;" + "Courier Prime=Courier Prime, courier new, courier;" + "Georgia=georgia,palatino;" +  "Helvetica=helvetica;" + "Impact=impact,chicago;" + "Indie Flower=Indie Flower, cursive;" + "Symbol=symbol;" + "Tahoma=tahoma,arial,helvetica,sans-serif;" + "Terminal=terminal,monaco;" + "Times New Roman=times new roman,times;" + "Trebuchet MS=trebuchet ms,geneva;" + "Verdana=verdana,geneva;"
-        });
-    </script>
     <script src="public/js/app.js"></script>
 </html>
