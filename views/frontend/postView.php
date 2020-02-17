@@ -26,19 +26,28 @@
 <section id="postcomments">
     <h2>Commentaires</h2>
 
-    <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
-        <div>
-            <label for="form_commentauthor">Nom, Prénom</label><br />
-            <input type="text" id="form_commentauthor" name="author" />
-        </div>
-        <div>
-            <label for="form_commentcontent">Commentaire</label><br />
-            <textarea id="form_commentcontent" name="comment"></textarea>
-        </div>
-        <div>
-            <input type="submit" class="button" name="addComment" value="Envoyer" />
-        </div>
-    </form>
+    <a id="newcommentbutton" class="button" href="#">Ajouter un commentaire</a>
+    <div class="<?php if (!isset($return)) { echo "invisible"; } ?>">
+        <?php if (isset($return)) { echo '<p class="return red"><i class="fas fa-exclamation-circle"></i> ' . $return . '</p>'; } ?>
+        <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
+            <div>
+                <label for="form_commentauthor">Nom, Prénom</label><br />
+                <input type="text" id="form_commentauthor" name="author" value ="<?php if (isset($_POST['author'])) { echo $_POST['author']; } ?>" required />
+            </div>
+            <div>
+                <label for="form_commentcontent">Commentaire</label><br />
+                <textarea id="form_commentcontent" name="comment" required><?php if (isset($_POST['comment'])) { echo $_POST['comment']; } ?></textarea>
+            </div>
+            <div>
+                <input type="submit" class="button" name="addComment" value="Envoyer" />
+            </div>
+        </form>
+    </div>
+
+    <?php
+    $commentExist = $comments->rowCount();
+    if($commentExist) {
+    ?>
 
     <?php
     while ($comment = $comments->fetch())
@@ -46,7 +55,7 @@
     ?>
         <div id="comment">
         <p><strong><?= $comment['author'] ?></strong><span class="date"> le <?= $comment['comment_date_fr'] ?></span>
-        <a href="index.php?action=reportComment&amp;comment_id=<?= $comment['id'] ?>&amp;post_id=<?= $comment['post_id'] ?>" title="Signaler ce commentaire"><i class="fas fa-exclamation-circle"></i></a></p>
+        <a href="index.php?action=reportComment&amp;comment_id=<?= $comment['id'] ?>&amp;post_id=<?= $comment['post_id'] ?>" title="Signaler ce commentaire" onclick="if(confirm('Signaler ce commentaire ?')){return true;}else{return false;}"><i class="fas fa-exclamation-circle"></i></a></p>
         <?php if($comment['report'] == 0) { ?> 
             <p><?= nl2br($comment['comment']) ?></p></div>
         <?php }
@@ -54,6 +63,10 @@
             echo '<p><em>Ce commentaire a été signalé</em></p></div>'; }
     }
     $comments->closeCursor();
+    ?>
+
+    <?php
+    } else { echo '<p><em>Soyez le premier à poster un commentaire sur ce chapitre !</em></p>'; }
     ?>
 </section>
 

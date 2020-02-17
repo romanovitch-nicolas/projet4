@@ -18,7 +18,17 @@ try {
             break;
 
             case 'connect':
-                $backend->connect();
+                if (!isset($_SESSION['login']) OR !isset($_COOKIE['login'])) {
+                    if (isset($_POST["login"])) {
+                        $backend->connect();
+                    }
+                    else {
+                        require('views/frontend/connectView.php');
+                    }
+                }
+                else {
+                    $frontend->home();
+                }
             break;
 
             case 'disconnect':
@@ -58,17 +68,11 @@ try {
 
             case 'addPost':
                 if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
-                    if (!empty($_POST['postTitle']) && !empty($_POST['postContent'])) {
-                        $titleLength = strlen($_POST['postTitle']);
-                        if($titleLength <= 255) {
-                            $backend->addPost($_POST['postTitle'], $_POST['postContent']);
-                        }
-                        else {
-                            throw new \Exception("Le titre ne doit pas dépasser 255 caractères.");
-                        }
+                    if (isset($_POST['postTitle'])) {
+                        $backend->addPost($_POST['postTitle'], $_POST['postContent']);
                     }
                     else {
-                        throw new \Exception('Tous les champs ne sont pas remplis !');
+                        require('views/backend/adminNewPostView.php');
                     }
                 }
                 else {
@@ -93,17 +97,11 @@ try {
             case 'editPost':
                 if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        if (!empty($_POST['postTitle']) && !empty($_POST['postContent'])) {
-                        $titleLength = strlen($_POST['postTitle']);
-                            if($titleLength <= 255) {
-                                $backend->editPost($_GET['id']);
-                            }
-                            else {
-                                throw new \Exception("Le titre ne doit pas dépasser 255 caractères.");
-                            }
+                        if (isset($_POST['postTitle'])) {
+                            $backend->editPost($_GET['id']);
                         }
                         else {
-                            throw new \Exception("Tous les champs ne sont pas remplis.");   
+                            $backend->editPostView($_GET['id']);
                         }
                     }
                     else {
@@ -174,17 +172,11 @@ try {
 
             case 'addComment':
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                        $nameLength = strlen($_POST['author']);
-                        if($nameLength <= 255) {
-                            $frontend->addComment($_GET['id'], $_POST['author'], $_POST['comment']);
-                        }
-                        else {
-                            throw new \Exception("Votre nom ne doit pas dépasser 255 caractères.");                    
-                        }
+                    if (isset($_POST['author'])) {
+                        $frontend->addComment($_GET['id'], $_POST['author'], $_POST['comment']);
                     }
                     else {
-                        throw new \Exception('Tous les champs ne sont pas remplis !');
+                        $frontend->post();
                     }
                 }
                 else {
@@ -193,11 +185,16 @@ try {
             break;
 
             case 'reportComment':
-                if ((isset($_GET['post_id']) && $_GET['post_id'] > 0) && (isset($_GET['comment_id']) && $_GET['comment_id'] > 0)) {
-                    $frontend->reportComment($_GET['comment_id'], $_GET['post_id']);
+                if (isset($_GET['post_id']) && $_GET['post_id'] > 0) {
+                    if(isset($_GET['comment_id']) && $_GET['comment_id'] > 0) {
+                        $frontend->reportComment($_GET['comment_id'], $_GET['post_id']);
+                    }
+                    else {
+                        throw new \Exception('Aucun identifiant de commentaire envoyé');
+                    }
                 }
                 else {
-                    throw new \Exception('Impossible de signaler le commentaire !');
+                    throw new \Exception('Aucun identifiant de billet envoyé');
                 }
             break;
 
@@ -216,7 +213,7 @@ try {
                         $backend->deleteComment($_GET['id']);
                     }
                     else {
-                        throw new \Exception('Aucun identifiant de billet envoyé');
+                        throw new \Exception('Aucun identifiant de commentaire envoyé');
                     }
                 }
                 else {
@@ -229,40 +226,16 @@ try {
                     $backend->deleteCommentReport($_GET['id']);
                 }
                 else {
-                    throw new \Exception('Impossible de supprimer le signalement.');
+                    throw new \Exception('Aucun identifiant de commentaire envoyé');
                 }
             break;
 
             case 'sendMessage':
-                if (!empty($_POST['messageName']) && !empty($_POST['messageMail']) && !empty($_POST['messageSubject']) && !empty($_POST['messageContent'])) {
-                    $nameLength = strlen($_POST['messageName']);
-                    $mailLength = strlen($_POST['messageMail']);
-                    $subjectLength = strlen($_POST['messageSubject']);
-
-                    if($nameLength <= 255) {
-                        if($mailLength <= 255) {
-                            if($subjectLength <= 255) {
-                                if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $_POST['messageMail'])) {
-                                    $frontend->addMessage($_POST['messageName'], $_POST['messageMail'], $_POST['messageSubject'], $_POST['messageContent']);
-                                }
-                                else {
-                                    throw new Exception('Veuillez renseigner une adresse mail valide.');
-                                }
-                            }
-                            else {
-                                throw new Exception('Le sujet ne doit pas dépasser 255 caractères.');
-                            }
-                        }
-                        else {
-                            throw new Exception('Votre email ne doit pas dépasser 255 caractères.');
-                        }
-                    }
-                    else {
-                        throw new Exception('Votre nom ne doit pas dépasser 255 caractères.');
-                    }
+                if (isset($_POST['messageName'])) {
+                    $frontend->addMessage($_POST['messageName'], $_POST['messageMail'], $_POST['messageSubject'], $_POST['messageContent']);
                 }
                 else {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
+                    require('views/frontend/contactView.php');
                 }
             break;
 

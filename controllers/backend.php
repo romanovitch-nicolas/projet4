@@ -13,8 +13,9 @@ class BackendController
 
         $login = htmlspecialchars($_POST["login"]);
         $pass = htmlspecialchars($_POST["pass"]);
+        
         if (!empty($login) AND !empty($pass)) {
-            $userinfo = $userManager->getUserInfo($_POST['login']);
+            $userinfo = $userManager->getUserInfo($login);
             $passverif = password_verify($pass, $userinfo['pass']);
             if ($passverif) {
                 session_start();
@@ -26,12 +27,14 @@ class BackendController
                 header('Location: index.php?action=adminPosts');
             }
             else {
-                throw new \Exception('Mauvais identifiant ou mot de passe !');
+                $return = 'Mauvais identifiant ou mot de passe.';
             }
         }
         else {
-            throw new \Exception('Tous les champs doivent être complétés !');
+            $return = 'Tous les champs ne sont pas remplis.';
         }
+
+        require('views/frontend/connectView.php');
     }
 
     public function disconnect()
@@ -57,39 +60,57 @@ class BackendController
         $postTitle = htmlspecialchars($postTitle);
         $postContent = htmlspecialchars($postContent);
 
-        if ($_FILES['postImage']['name']) {
-            if ($_FILES['postImage']['size'] <= 2000000) {
-                $fileInfo = pathinfo($_FILES['postImage']['name']);
-                $extension_upload = $fileInfo['extension'];
-                $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
-                if (in_array($extension_upload, $authorized_extensions)) {
-                    $insertPost = $postManager->insertPost($postTitle, $postContent);
-                    $fileInfo = pathinfo($_FILES['postImage']['name']);
-                    $imageName = 'post_' . $insertPost . '.' . $fileInfo['extension'];
-                    move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageName));
-                    $image = $postManager->insertImage($insertPost, $imageName);
+        if (!empty($_POST['postTitle']) && !empty($_POST['postContent'])) {
+            $titleLength = strlen($_POST['postTitle']);
+            if($titleLength <= 255) {
+                if ($_FILES['postImage']['name']) {
+                    if ($_FILES['postImage']['size'] <= 2000000) {
+                        $fileInfo = pathinfo($_FILES['postImage']['name']);
+                        $extension_upload = $fileInfo['extension'];
+                        $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                        if (in_array($extension_upload, $authorized_extensions)) {
+                            $insertPost = $postManager->insertPost($postTitle, $postContent);
+                            $fileInfo = pathinfo($_FILES['postImage']['name']);
+                            $imageName = 'post_' . $insertPost . '.' . $fileInfo['extension'];
+                            move_uploaded_file($_FILES['postImage']['tmp_name'], 'public/images/' . basename($imageName));
+                            $image = $postManager->insertImage($insertPost, $imageName);
+                            if ($insertPost === false) {
+                                throw new \Exception('Impossible d\'ajouter l\'article.');
+                            }
+                            elseif ($image === false) {
+                                throw new \Exception('Impossible d\'ajouter l\'image.');
+                            }
+                            else {
+                                header('Location: index.php?action=adminPosts');
+                            }
+                        }
+                        else {
+                            $return = 'Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)';                       
+                        }
+                    }
+                    else {
+                        $return = 'L\'image est trop volumineuse. (Taille maximale : 2 Mo)';                    
+                    }
                 }
                 else {
-                    throw new \Exception('Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)');                       
+                    $insertPost = $postManager->insertPost($postTitle, $postContent);
+                    if ($insertPost === false) {
+                        throw new \Exception('Impossible d\'ajouter l\'article.');
+                    }
+                    else {
+                        header('Location: index.php?action=adminPosts');
+                    }
                 }
             }
             else {
-                throw new \Exception('L\'image est trop volumineuse. (Taille maximale : 2 Mo)');                    
+                $return = "Le titre ne doit pas dépasser 255 caractères.";
             }
         }
         else {
-            $insertPost = $postManager->insertPost($postTitle, $postContent);
+            $return = 'Tous les champs ne sont pas remplis.';
         }
 
-        if ($insertPost === false) {
-            throw new \Exception('Impossible d\'ajouter l\'article.');
-        }
-        elseif ($image === false) {
-            throw new \Exception('Impossible d\'ajouter l\'image.');
-        }
-        else {
-            header('Location: index.php?action=adminPosts');
-        }
+        require('views/backend/adminNewPostView.php');
     }
 
     public function editPostView($postId) 
@@ -108,39 +129,58 @@ class BackendController
         $postTitle = htmlspecialchars($_POST['postTitle']);
         $postContent = htmlspecialchars($_POST['postContent']);
 
-        if ($_FILES['editImage']['name']) {
-            if ($_FILES['editImage']['size'] <= 2000000) {
-                $fileInfo = pathinfo($_FILES['editImage']['name']);
-                $extension_upload = $fileInfo['extension'];
-                $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
-                if (in_array($extension_upload, $authorized_extensions)) {
-                    $editPost = $postManager->setEditPost($postId, $postTitle, $postContent);
-                    $fileInfo = pathinfo($_FILES['editImage']['name']);
-                    $imageName = 'post_' . $postId . '.' . $fileInfo['extension'];
-                    move_uploaded_file($_FILES['editImage']['tmp_name'], 'public/images/' . basename($imageName));
-                    $image = $postManager->insertImage($postId, $imageName);
+        if (!empty($_POST['postTitle']) && !empty($_POST['postContent'])) {
+            $titleLength = strlen($_POST['postTitle']);
+            if($titleLength <= 255) {
+                if ($_FILES['editImage']['name']) {
+                    if ($_FILES['editImage']['size'] <= 2000000) {
+                        $fileInfo = pathinfo($_FILES['editImage']['name']);
+                        $extension_upload = $fileInfo['extension'];
+                        $authorized_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                        if (in_array($extension_upload, $authorized_extensions)) {
+                            $editPost = $postManager->setEditPost($postId, $postTitle, $postContent);
+                            $fileInfo = pathinfo($_FILES['editImage']['name']);
+                            $imageName = 'post_' . $postId . '.' . $fileInfo['extension'];
+                            move_uploaded_file($_FILES['editImage']['tmp_name'], 'public/images/' . basename($imageName));
+                            $image = $postManager->insertImage($postId, $imageName);
+                            if ($editPost === false) {
+                                throw new Exception('Impossible de modifier le chapitre.');
+                            }
+                            elseif ($image === false) {
+                                throw new Exception('Impossible de modifier l\'image.');
+                            }
+                            else {
+                               header('Location: index.php?action=post&id=' . $postId);
+                            }   
+                        }
+                        else {
+                            $return = 'Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)';                       
+                        }
+                    }
+                    else {
+                        $return = 'L\'image est trop volumineuse. (Taille maximale : 2 Mo)';                    
+                    }
                 }
                 else {
-                    throw new \Exception('Extension de l\'image non valide. (Extensions autorisées : .jpg, .jpeg, .gif, .png)');                       
+                    $editPost = $postManager->setEditPost($postId, $postTitle, $postContent);
+                    if ($editPost === false) {
+                        throw new Exception('Impossible de modifier le chapitre.');
+                    }
+                    else {
+                       header('Location: index.php?action=post&id=' . $postId);
+                    }  
                 }
             }
             else {
-                throw new \Exception('L\'image est trop volumineuse. (Taille maximale : 2 Mo)');                    
+                $return = "Le titre ne doit pas dépasser 255 caractères.";
             }
         }
         else {
-            $editPost = $postManager->setEditPost($postId, $postTitle, $postContent);
+            $return = "Tous les champs ne sont pas remplis.";   
         }
-
-        if ($editPost === false) {
-            throw new Exception('Impossible de modifier le chapitre.');
-        }
-        elseif ($image === false) {
-            throw new Exception('Impossible de modifier l\'image.');
-        }
-        else {
-           header('Location: index.php?action=post&id=' . $postId);
-        }    
+        
+        $post = $postManager->getPost($_GET['id']);
+        require('views/backend/adminEditPostView.php');  
     }
 
     public function deletePost($postId)
@@ -149,7 +189,7 @@ class BackendController
         $deletePost = $postManager->deletePost($postId);
 
         if ($deletePost === false) {
-            throw new \Exception('Impossible de supprimer ce chapitre !');
+            throw new \Exception('Impossible de supprimer ce chapitre.');
         }
         else {
             header('Location: index.php?action=adminPosts');
@@ -166,7 +206,7 @@ class BackendController
         }
 
         if ($deleteImage === false) {
-            throw new \Exception('Impossible de supprimer l\'image !');
+            throw new \Exception('Impossible de supprimer l\'image.');
         }
         else {
             header('Location: index.php?action=adminEditPost&id=' . $postId);
@@ -179,7 +219,7 @@ class BackendController
         $onlinePost = $postManager->setOnlinePost($postId);
 
         if ($onlinePost === false) {
-            throw new \Exception('Impossible de publier ce chapitre !');
+            throw new \Exception('Impossible de publier ce chapitre.');
         }
         else {
            header('Location: index.php?action=adminPosts');
@@ -192,7 +232,7 @@ class BackendController
         $offlinePost = $postManager->setOfflinePost($postId);
 
         if ($offlinePost === false) {
-            throw new \Exception('Impossible de passer ce chapitre dans les brouillons !');
+            throw new \Exception('Impossible de passer ce chapitre dans les brouillons.');
         }
         else {
            header('Location: index.php?action=adminPosts');
@@ -214,7 +254,7 @@ class BackendController
         $deleteComment = $commentManager->deleteComment($commentId);
 
         if ($deleteComment === false) {
-            throw new \Exception('Impossible de supprimer ce commentaire !');
+            throw new \Exception('Impossible de supprimer ce commentaire.');
         }
         else {
            header('Location: index.php?action=adminComments');
@@ -227,7 +267,7 @@ class BackendController
         $deleteReport = $commentManager->setDeleteReporting($commentId);
 
         if ($deleteReport === false) {
-            throw new \Exception('Impossible de supprimer le signalement !');
+            throw new \Exception('Impossible de supprimer le signalement.');
         }
         else {
             header('Location: index.php?action=adminComments');
@@ -258,7 +298,7 @@ class BackendController
         $deleteMessage = $messageManager->deleteMessage($messageId);
 
         if ($deleteMessage === false) {
-            throw new \Exception('Impossible de supprimer ce message !');
+            throw new \Exception('Impossible de supprimer ce message.');
         }
         else {
             header('Location: index.php?action=adminMessages');

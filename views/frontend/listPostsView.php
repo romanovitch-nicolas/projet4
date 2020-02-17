@@ -8,24 +8,25 @@ $postExist = $posts->rowCount();
 if($postExist) {
 ?>
 
-<?php
-while ($data = $posts->fetch())
-{
-?>
 <section id="listposts">
-    <h3>
-        <?= htmlspecialchars_decode($data['title']) ?><br />
-        <span class="date">le <?= $data['creation_date_fr'] ?></span>
-    </h3>
-        
-    <p>
-        <?php 
-        $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));
-        echo substr($postDescription, 0, 500) . '...';
-        ?>
-    </p>
-    <p><a class="button" href="index.php?action=post&amp;id=<?= $data['id'] ?>">Voir le chapitre</a></p>
-
+<?php
+    while ($data = $posts->fetch())
+    {
+    ?>
+        <div>
+            <h3>
+                <?= htmlspecialchars_decode($data['title']) ?><br />
+                <span class="date">le <?= $data['creation_date_fr'] ?></span>
+            </h3>
+                
+            <p>
+                <?php 
+                $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));
+                echo substr($postDescription, 0, 500) . '...';
+                ?>
+            </p>
+            <p><a class="button" href="index.php?action=post&amp;id=<?= $data['id'] ?>">Voir le chapitre</a></p>
+        </div>
     <?php
     }
     $posts->closeCursor();

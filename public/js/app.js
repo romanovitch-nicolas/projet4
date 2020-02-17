@@ -3,13 +3,19 @@ class App {
 		this.header = document.querySelector("header");
 		this.downButton = document.querySelector("#downbutton");
 		this.synopsis = document.querySelector("#synopsis");
+		this.newCommentButton = document.querySelector("#newcommentbutton");
+		this.newCommentInput = document.querySelector("#postcomments div");
+		this.newImageButton = document.querySelector("#newimagebutton");
+		this.newImageInput = document.querySelector("#newpost div");
 		this.editImageButton = document.querySelector("#editimagebutton");
-		this.editImageInput = document.querySelector("#editimageinput");
+		this.editImageInput = document.querySelector("#editpost div");
 
 		this.tinyInit();
 		this.headerColor(this.header);
 		if(this.downButton !== null) { this.scrollCorrection(); }
-		if(this.editImageButton !== null) { this.displayFileInput(); }
+		if(this.newCommentButton !== null) { this.displayFileInput(this.newCommentButton, this.newCommentInput); }
+		if(this.newImageButton !== null) { this.displayFileInput(this.newImageButton, this.newImageInput); }
+		if(this.editImageButton !== null) { this.displayFileInput(this.editImageButton, this.editImageInput); }
 	}
 
 	tinyInit() {
@@ -74,19 +80,19 @@ class App {
 		}.bind(this));
 	}
 
-	displayFileInput() {
+	displayFileInput(button, input) {
 		// Affichage de l'input "file" au clic sur "Modifier l'image"
-		this.editImageButton.addEventListener("click", function(e) {
+		button.addEventListener("click", function(e) {
 			e.preventDefault();
-			this.editImageInput.classList.toggle("invisible");
-			this.editImageInput.animate([
-					{transform: "translateY(-15%)", opacity: 0},
+			input.classList.toggle("invisible");
+			input.animate([
+					{transform: "translateY(-5%)", opacity: 0},
 					{transform: "translateY(0)", opacity: 1}
 				], {
 					duration : 150,
 					iterations : 1,
 			});
-		}.bind(this));
+		});
 	}
 }
 

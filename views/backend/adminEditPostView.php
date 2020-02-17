@@ -7,15 +7,16 @@
 <a class="button" href="index.php?action=deletePost&amp;id=<?= $post['id'] ?>" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}">Supprimer le chapitre</a>
 
 <section id="editpost">
+	<?php if (isset($return)) { echo '<p class="return red"><i class="fas fa-exclamation-circle"></i> ' . $return . '</p>'; } ?>
 	<form method='post' action="index.php?action=editPost&amp;id=<?= $post['id'] ?>" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td><label for="postTitle">Titre</label></td>
-				<td><input type="text" name="postTitle" value="<?= htmlspecialchars_decode($post['title']) ?>" /></td>
+				<td><input type="text" name="postTitle" value="<?php if (isset($_POST['postTitle'])) { echo $_POST['postTitle']; } else { echo htmlspecialchars_decode($post['title']); } ?>" required /></td>
 			</tr>
 			<tr>
 				<td><label for="postContent">Message</label></td>
-				<td><textarea name="postContent" id="post"><?= htmlspecialchars_decode($post['content']) ?></textarea></td>
+				<td><textarea name="postContent" id="post"><?php if (isset($_POST['postContent'])) { echo $_POST['postContent']; } else { echo htmlspecialchars_decode($post['content']); } ?></textarea></td>
 			</tr>
 			<tr>
 				<td><label>Image actuelle</label></td>
@@ -29,8 +30,11 @@
 					<?php if (!empty($post['image_name'])) { ?>
 						<a class="button" href="index.php?action=deleteImage&amp;id=<?= $post['id'] ?>" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}">Supprimer l'image</a>
 					<?php } ?>
-					<br />
-					<input id="editimageinput" class="invisible" type="file" name="editImage" /></td>
+					<div class="invisible">
+						<input type="file" name="editImage" />
+						<p class="date">(Taille maximale : 2 Mo. | Formats d'image acceptés : .jpg, .jpeg, .png, .gif.)</p>
+					</div>
+				</td>
 			</tr>
 		</table>
 		
