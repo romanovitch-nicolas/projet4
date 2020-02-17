@@ -150,7 +150,7 @@ class BackendController
                                 throw new Exception('Impossible de modifier l\'image.');
                             }
                             else {
-                               header('Location: index.php?action=post&id=' . $postId);
+                               header('Location: index.php?action=adminPosts');
                             }   
                         }
                         else {
@@ -167,7 +167,7 @@ class BackendController
                         throw new Exception('Impossible de modifier le chapitre.');
                     }
                     else {
-                       header('Location: index.php?action=post&id=' . $postId);
+                       header('Location: index.php?action=adminPosts');
                     }  
                 }
             }

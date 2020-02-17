@@ -13,19 +13,23 @@ if($postExist) {
     while ($data = $posts->fetch())
     {
     ?>
-        <div>
-            <h3>
-                <?= htmlspecialchars_decode($data['title']) ?><br />
-                <span class="date">le <?= $data['creation_date_fr'] ?></span>
-            </h3>
-                
-            <p>
-                <?php 
-                $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));
-                echo substr($postDescription, 0, 500) . '...';
-                ?>
-            </p>
-            <p><a class="button" href="index.php?action=post&amp;id=<?= $data['id'] ?>">Voir le chapitre</a></p>
+        <div id="postpreview">
+            <div><?php if (!empty($data['image_name'])) { ?><img src="public/images/<?= $data['image_name'] ?>" /><?php } ?>
+            </div>
+            <div>
+                <h3>
+                    <?= htmlspecialchars_decode($data['title']) ?><br />
+                    <span class="date">le <?= $data['creation_date_fr'] ?></span>
+                </h3>
+                    
+                <p>
+                    <?php 
+                    $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));
+                    echo substr($postDescription, 0, 300) . '...';
+                    ?>
+                </p>
+                <p><a class="button" href="index.php?action=post&amp;id=<?= $data['id'] ?>">Voir le chapitre</a></p>
+            </div>
         </div>
     <?php
     }
