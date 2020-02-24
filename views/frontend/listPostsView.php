@@ -23,7 +23,7 @@ if($postExist) {
                 </h3>
                     
                 <p>
-                    <?php 
+                    <?php
                     $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));
                     echo substr($postDescription, 0, 300) . '...';
                     ?>

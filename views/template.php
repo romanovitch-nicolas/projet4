@@ -24,9 +24,8 @@
             	<li><a href="index.php?action=listPosts">Liste des chapitres</a></li>
             	<li><a href="index.php?action=contact">Contact</a></li></div>
                 <?php if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) { ?>
-                    <div><li class="dropmenu"><a href="#">Espace Administrateur ▼</a>
-                        <ul class="submenu">
-                            <li><a href="index.php?action=adminNewPost">Écrire un chapitre</a></li>
+                    <div><li class="dropmenu"><span>Espace Administrateur ▼</span>
+                        <ul class="submenu invisible">
                             <li><a href="index.php?action=adminPosts">Gérer les chapitres</a></li>
                             <li><a href="index.php?action=adminComments">Gérer les commentaires</a></li>
                             <li><a href="index.php?action=adminMessages">Messagerie</a></li>
@@ -38,6 +37,7 @@
                 <?php } ?>
             </ul>
         </nav>
+        <i id="burger" class="fas fa-bars fa-2x"></i>
     </header>
 
     <body>

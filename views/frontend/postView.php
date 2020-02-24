@@ -1,13 +1,14 @@
 <?php $title = htmlspecialchars_decode($post['title']) ?>
 
 <?php ob_start(); ?>        
-<h1>Billet simple pour l'Alaska</h1>
+<h1><?= $post['title'] ?></h1>
 
 <section id="postcontent">
-    <a class="button" href="index.php?action=listPosts">Retour à la liste des chapitres</a>
+    <div><a class="button" href="index.php?action=listPosts">Retour à la liste des chapitres</a>
     <?php if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) { ?>
         <a class="button" href="index.php?action=adminEditPost&amp;id=<?= $post['id'] ?>">Modifier le chapitre</a>
     <?php } ?>
+    </div>
 
     <?php if (!empty($post['image_name'])) { ?>
         <div>
@@ -54,8 +55,8 @@
     {
     ?>
         <div id="comment">
-        <p><strong><?= $comment['author'] ?></strong><span class="date"> le <?= $comment['comment_date_fr'] ?></span>
-        <a href="index.php?action=reportComment&amp;comment_id=<?= $comment['id'] ?>&amp;post_id=<?= $comment['post_id'] ?>" title="Signaler ce commentaire" onclick="if(confirm('Signaler ce commentaire ?')){return true;}else{return false;}"><i class="fas fa-exclamation-circle"></i></a></p>
+        <p><strong><?= $comment['author'] ?></strong><span class="date"> le <?= $comment['comment_date_fr'] ?><a href="index.php?action=reportComment&amp;comment_id=<?= $comment['id'] ?>&amp;post_id=<?= $comment['post_id'] ?>" title="Signaler ce commentaire" onclick="if(confirm('Signaler ce commentaire ?')){return true;}else{return false;}"><i class="fas fa-exclamation-circle"></i></a></span>
+        </p>
         <?php if($comment['report'] == 0) { ?> 
             <p><?= nl2br($comment['comment']) ?></p></div>
         <?php }

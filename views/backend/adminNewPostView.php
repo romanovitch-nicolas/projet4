@@ -9,7 +9,7 @@
 		<table>
 			<tr>
 				<td><label for="postTitle">Titre</label></td>
-				<td><input type="text" name="postTitle" value ="<?php if (isset($_POST['postTitle'])) { echo $_POST['postTitle']; } ?>" required /></td>
+				<td><input type="text" name="postTitle" value="<?php if (isset($_POST['postTitle'])) { echo $_POST['postTitle']; } ?>" placeholder="Titre" required /></td>
 			</tr>
 			<tr>
 				<td><label for="postContent">Texte</label></td>

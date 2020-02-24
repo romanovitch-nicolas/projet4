@@ -50,6 +50,7 @@ label
 table
 {
 	margin: auto;
+	max-width: 95%;
 }
 
 h1, h2, label
@@ -65,12 +66,14 @@ form
 input, textarea
 {
 	font-family: 'Courier Prime', monospace, sans-serif;
-}
-
-input[type="text"], input[type="email"], input[type="password"], textarea
-{
 	padding: 4px;
 	font-size: 14px;
+	-webkit-appearance: none;
+	border: 1px solid #A9A9A9;
+}
+
+input[type="text"], input[type="email"], input[type="password"]
+{
 	width: 300px;
 }
 
@@ -92,6 +95,7 @@ input[type="submit"]
 
 .button
 {
+	font-size: 14px;
 	padding: 10px;
 	line-height: 250%;
 	background-color: #353232;
@@ -100,7 +104,7 @@ input[type="submit"]
 	box-shadow: 1px 1px 2px #000;
 	border: none;
 	cursor: pointer;
-	font-size: 14px;
+	white-space: nowrap;
 }
 
 .date
@@ -111,7 +115,7 @@ input[type="submit"]
 
 .invisible
 {
-	display: none;
+	display: none !important;
 }
 
 .return
@@ -123,6 +127,11 @@ input[type="submit"]
 .red
 {
 	color: #F00;
+}
+
+::placeholder
+{
+	visibility: hidden;
 }
 
 
@@ -138,7 +147,7 @@ header
 	left: 0;
 	right: 0;
 	top: 0;
-	z-index: 1;
+	z-index: 2;
 }
 
 .logo
@@ -146,7 +155,17 @@ header
 	font-family: 'Indie Flower', 'Courier Prime', monospace, sans-serif;
 	font-size: 30px;
 	width: 350px;
-	margin-left: 20px;
+	margin-left: 15px;
+}
+
+#burger
+{
+	display: none;
+	padding: 15px;
+	border-radius: 50%;
+	background-color: #353232;
+	color: #FFF;
+	cursor: pointer;
 }
 
 nav
@@ -178,9 +197,15 @@ nav a:hover
 	font-weight: bold;
 }
 
+.dropmenu span:hover
+{
+	font-weight: bold;
+	cursor: pointer;
+}
+
 .submenu
 {
-	display: none;
+	display: block;
 	padding-inline-start: 0;
 	text-align: left;
 	position: relative;
@@ -205,11 +230,6 @@ nav a:hover
 {
 	border-radius: 0px 0px 3px 3px;
 	border: none;
-}
-
-.dropmenu:hover .submenu
-{
-	display: block;
 }
 
 
@@ -246,7 +266,7 @@ footer i
 .homedescription
 {
 	position: absolute;
-	top: 25%;
+	top: 30%;
 	left: 1%;
 	right: 1%;
 }
@@ -398,7 +418,7 @@ footer i
 
 #postcomments textarea
 {
-	width: 302px;
+	width: 300px;
 	height: 100px;
 	line-height: 150%;
 }
@@ -437,7 +457,7 @@ footer i
 
 #contact textarea
 {
-	width: 302px;
+	width: 300px;
 	height: 150px;
 	line-height: 150%;
 }
@@ -453,11 +473,6 @@ footer i
 #newpost tr td:last-child
 {
 	text-align: left;
-}
-
-#post
-{
-	height: 380px;
 }
 
 #tinymce
@@ -508,6 +523,7 @@ footer i
 #adminposts table
 {
 	border-collapse: collapse;
+	margin-top: 10px;
 	margin-bottom: 33px;
 }
 
@@ -561,6 +577,11 @@ footer i
 #adminposts i
 {
 	color: #353232;
+}
+
+i.fas.fa-pen
+{
+	color: #FFF !important;
 }
 
 
@@ -720,3 +741,326 @@ footer i
 {
 	margin-left: 10px;
 }
+
+
+	/* Keyframes */
+
+@keyframes header-color {
+	0% {
+  		background-color: transparent;
+	}
+	100% {
+    	background-color: #FFF;
+	}
+}
+
+
+	/* Breakpoint */
+
+@media all and (max-width: 1024px)		/* Petites résolutions, Tablettes */
+{
+	/* Menu de Navigation */
+
+	nav
+	{
+		position: absolute;
+		right: 8%;
+		top: 85px;
+		width: initial;
+		box-shadow: 0px 1px 5px;
+		border-radius: 3px 3px 3px 3px;
+	}
+
+	nav ul, nav ul div
+	{
+	    flex-direction: column;
+	    padding: 0;
+		margin: 0;
+	}
+
+	nav ul li
+	{
+		border-bottom: 1px solid #BEBEBE;
+		background-color: #FFF;
+		padding: 10px;
+		margin: 0;
+	}
+
+	.submenu
+	{
+		position: initial;
+		box-shadow: none;
+		text-align: center;
+	}
+
+	.submenu li
+	{
+		padding: 4px;
+	}
+
+	.submenu li:first-child
+	{
+		margin-top: 5px;
+	}
+
+	#burger
+	{
+		display: block;
+		margin-left: auto;
+		margin-right: 8%;
+	}
+
+
+	/* Accueil */
+
+	.column
+	{
+		display: block;
+	}
+
+	#author
+	{
+		margin-right: auto;
+	}
+
+	.lastpost
+	{
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+}
+
+
+@media all and (max-width: 768px)		/* Smartphone */
+{
+
+	/* Général */
+
+	body
+	{
+		font-size: 14px;
+	}
+
+	h1
+	{
+		font-size: 28px;
+		background-size: 768px 400px;
+	}
+
+	input[type="text"], input[type="email"], input[type="password"]
+	{
+		width: 220px;
+	}
+
+	.button
+	{
+		font-size: 12px;
+	}
+
+
+	/* Accueil */
+
+	#welcome, #synopsis, #author, #lastpost
+	{
+		padding-bottom: 20px;
+	}
+
+	#welcome
+	{
+		margin-top: 0;
+	}
+
+	.homedescription
+	{
+		position: initial;
+	}
+
+	.homedescription p
+	{
+		position: initial;
+		font-size: 26px;
+	}
+
+	.lastpost
+	{
+		width: 280px;
+	}
+
+	.lastpost .button
+	{
+		margin-right: 0;
+	}
+
+	#author img
+	{
+		float: none;
+		width: 280px;
+	}
+
+	#author p
+	{
+		text-align: center;
+	}
+
+
+	/* Listes des chapitres */
+
+	#postpreview
+	{
+		display: block;
+		border-left: 2px solid #000;
+		padding-left: 15px;
+	}
+
+	#listposts div div:nth-child(2)
+	{
+		border: none;
+		padding: 0;
+	}
+
+
+	/* Chapitre */
+
+	#postcontent div:first-child
+	{
+		text-align: center;
+	}
+
+	#postcomments textarea
+	{
+		width: 220px;
+	}
+
+	#comment p:first-child
+	{
+		display: flex;
+		flex-direction: column;
+	}
+
+
+	/* Contact */
+
+	#contact textarea
+	{
+		width: 220px;
+	}
+
+	#contact input[type="submit"]
+	{
+		margin-left: 0;
+	}
+
+
+	/* Connexion */
+
+	#connect input[type="text"], #connect input[type="password"]
+	{
+		width: 150px;
+	}
+
+
+	/* Gestion des chapitres */
+
+	#adminposts thead
+	{
+		display: none;
+	}
+
+	#adminposts td
+	{
+		display: block;
+		height: 100%;
+	}
+
+	#adminposts td:nth-child(2), #adminposts td:nth-child(3)
+	{
+		max-width: 100%;
+	}
+
+	#adminposts tr
+	{
+		display: block;
+		height: 100%;
+		margin-bottom: 10px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+
+	/* Ecrire un chapitre, Modifier un chapitre */
+
+	#newpost table, #editpost table
+	{
+		margin-bottom: 10px;
+		width: 100%;
+	}
+
+	#newpost label, #editpost label
+	{
+		display: none;
+	}
+
+	::placeholder
+	{
+		visibility: visible;
+	}
+
+
+	/* Gestion des commentaires */
+
+	#admincomments thead
+	{
+		display: none;
+	}
+
+	#admincomments td
+	{
+		display: block;
+		height: 100%;
+		text-align: left;
+	}
+
+	#admincomments tr
+	{
+		display: block;
+		height: 100%;
+		margin-bottom: 10px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	#admincomments td:nth-child(2), #admincomments td:nth-child(3), #admincomments td:nth-child(4)
+	{
+		max-width: 100%;
+	}
+
+
+		/* Messagerie */
+
+	#adminmessages thead
+	{
+		display: none;
+	}
+
+	#adminmessages td
+	{
+		display: block;
+		height: 100%;
+		text-align: left;
+	}
+
+	#adminmessages td:last-child
+	{
+		text-align: center;
+	}
+
+	#adminmessages tr
+	{
+		display: block;
+		height: 100%;
+		margin-bottom: 10px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 250px;
+	}
