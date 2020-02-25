@@ -29,7 +29,7 @@ if($commentExist) {
 						<?php if($data['report'] == 1) { echo '<i class="fas fa-exclamation-circle" title="Commentaire signalé"></i>'; } ?>
 						<?= $data['comment_date_fr'] ?>
 						</td>
-					<td><a class="bold" href="index.php?action=post&amp;id=<?= $data['tableposts_id'] ?>"><?= $data['tableposts_title'] ?></a></td>
+					<td><a class="bold" href="blog-<?= transform_into_url($data['tableposts_title'])?>-<?= $data['tableposts_id']?>"><?= $data['tableposts_title'] ?></a></td>
 					<td><?= htmlspecialchars_decode($data['author']) ?></td>
 					<td><?= nl2br(htmlspecialchars($data['comment'])) ?></td>
 					<td><?php if($data['report'] == 1) { ?>

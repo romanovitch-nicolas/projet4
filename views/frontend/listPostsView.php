@@ -28,7 +28,7 @@ if($postExist) {
                     echo substr($postDescription, 0, 300) . '...';
                     ?>
                 </p>
-                <p><a class="button" href="index.php?action=post&amp;id=<?= $data['id'] ?>">Voir le chapitre</a></p>
+                <p><a class="button" href="blog-<?= transform_into_url($data['title'])?>-<?= $data['id']?>">Voir le chapitre</a></p>
             </div>
         </div>
     <?php

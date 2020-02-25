@@ -49,7 +49,7 @@ class FrontendController
                     throw new \Exception('Impossible d\'ajouter le commentaire.');
                 }
                 else {
-                    header('Location: index.php?action=post&id=' . $postId);
+                    header('Location: modifier-un-chapitre-' . $postId);
                 }
             }
             else {
@@ -73,7 +73,7 @@ class FrontendController
             throw new \Exception('Impossible de signaler le commentaire.');
         }
         else {
-            header('Location: index.php?action=post&id=' . $postId);
+            header('Location: modifier-un-chapitre-' . $postId);
         }
     }
 
@@ -106,7 +106,7 @@ class FrontendController
                                 $message='
                                 <html>
                                     <body>
-                                        <p>Vous avez reçu un nouveau message sur <a href="http://localhost/projet4/index.php">votre blog</a> !</p>
+                                        <p>Vous avez reçu un nouveau message sur <a href="www.projet4.n-romano.fr">votre blog</a> !</p>
                                         <br />
                                         <p>De : ' . $messageName . ' <em>(' . $messageMail . ')</em></p>
                                         <p>Objet : ' . $messageSubject . '</p>

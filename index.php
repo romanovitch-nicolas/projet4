@@ -2,6 +2,7 @@
 session_start();
 require_once('controllers/frontend.php');
 require_once('controllers/backend.php');
+require_once('include/functions.php');
 $frontend = new \Nicolas\Projet4\Controllers\FrontendController();
 $backend = new \Nicolas\Projet4\Controllers\BackendController();
 

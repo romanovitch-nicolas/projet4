@@ -9,7 +9,7 @@ if($postExist) {
 ?>
 
 <section id="adminposts">
-	<a class="button" href="index.php?action=adminNewPost"><i class="fas fa-pen"></i> Écrire un chapitre</a>
+	<a class="button" href="ecrire-un-chapitre"><i class="fas fa-pen"></i> Écrire un chapitre</a>
 	<table>
 		<thead>
 			<tr>
@@ -30,13 +30,13 @@ if($postExist) {
 					<td><?php if (!empty($data['image_name'])) { ?>
 						<img src="public/images/<?= $data['image_name'] ?>" />
 						<?php } ?></td>
-					<td><a class="bold" href="index.php?action=post&amp;id=<?= $data['id'] ?>"><?= $data['title'] ?></a></td>
+					<td><a class="bold" href="blog-<?= transform_into_url($data['title']) ?>-<?= $data['id'] ?>"><?= $data['title'] ?></a></td>
 					<td><?php 
 				        $postDescription = nl2br(strip_tags(htmlspecialchars_decode($data['content'])));
 				        echo substr($postDescription, 0, 200) . '...';
 			        	?></td>
 					<td>
-						<a href="index.php?action=adminEditPost&amp;id=<?= $data['id'] ?>" title="Modifier"><i class="fas fa-edit"></i></a>
+						<a href="modifier-un-chapitre-<?= $data['id'] ?>" title="Modifier"><i class="fas fa-edit"></i></a>
 						<a href="index.php?action=deletePost&amp;id=<?= $data['id'] ?>" title="Supprimer" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}"><i class="fas fa-trash"></i></a>
 						<?php if($data['online'] == 0) { ?>
 							<a href="index.php?action=onlinePost&amp;id=<?= $data['id'] ?>" title="Rendre public"><i class="fas fa-eye-slash"></i></a>

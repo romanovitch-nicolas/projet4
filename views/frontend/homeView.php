@@ -7,7 +7,7 @@
     <div class="homedescription">
         <p>Bienvenue sur mon blog !</p>
         <p>Venez découvrir mon dernier livre "<strong>Billet simple pour l'Alaska</strong>"</p><br />
-        <a id="downbutton" class="button" href="#synopsis">Découvrir le livre</a><a class="button" href="index.php?action=listPosts">Lire le livre</a>
+        <a id="downbutton" class="button" href="#synopsis">Découvrir le livre</a><a class="button" href="blog">Lire le livre</a>
     </div>
 </section>
 
@@ -45,7 +45,7 @@
                 ?></p>
             <br />
             <div>
-                <p><a class="button" href="index.php?action=post&amp;id=<?= $post['id'] ?>">Lire la suite</a></p>
+                <p><a class="button" href="blog-<?= transform_into_url($post['title'])?>-<?= $post['id']?>">Lire la suite</a></p>
                 <p><em>le <?= $post['creation_date_fr'] ?></em></p>
             </div>
         </div>

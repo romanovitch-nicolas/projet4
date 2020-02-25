@@ -1,0 +1,16 @@
+Options +FollowSymlinks
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^accueil$ index.php [L]
+RewriteRule ^blog$ index.php?action=listPosts [L]
+RewriteRule ^blog-(.*)-([0-9]+)$ index.php?action=post&id=$2 [L]
+RewriteRule ^contact$ index.php?action=contact [L]
+RewriteRule ^connexion$ index.php?action=connexion [L]
+
+RewriteRule ^gestion-des-chapitres$ index.php?action=adminPosts [L]
+RewriteRule ^ecrire-un-chapitre$ index.php?action=adminNewPost [L]
+RewriteRule ^modifier-un-chapitre-([0-9]+)$ index.php?action=adminEditPost&id=$1 [L]
+RewriteRule ^gestion-des-commentaires$ index.php?action=adminComments [L]
+RewriteRule ^messagerie$ index.php?action=adminMessages [L]
+RewriteRule ^message-([0-9]+)$ index.php?action=message&id=$1 [L]

@@ -17,23 +17,23 @@
     </head>
        
     <header>
-        <p class="logo"><a href="index.php">Jean <strong>Forteroche</strong></a></p>
+        <p class="logo"><a href="accueil">Jean <strong>Forteroche</strong></a></p>
         <nav>
             <ul><div>
-            	<li><a href="index.php"><i class="fas fa-home"></i> Accueil</a></li>
-            	<li><a href="index.php?action=listPosts">Liste des chapitres</a></li>
-            	<li><a href="index.php?action=contact">Contact</a></li></div>
+            	<li><a href="accueil"><i class="fas fa-home"></i> Accueil</a></li>
+            	<li><a href="blog">Liste des chapitres</a></li>
+            	<li><a href="contact">Contact</a></li></div>
                 <?php if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) { ?>
                     <div><li class="dropmenu"><span>Espace Administrateur ▼</span>
                         <ul class="submenu invisible">
-                            <li><a href="index.php?action=adminPosts">Gérer les chapitres</a></li>
-                            <li><a href="index.php?action=adminComments">Gérer les commentaires</a></li>
-                            <li><a href="index.php?action=adminMessages">Messagerie</a></li>
+                            <li><a href="gestion-des-chapitres">Gérer les chapitres</a></li>
+                            <li><a href="gestion-des-commentaires">Gérer les commentaires</a></li>
+                            <li><a href="messagerie">Messagerie</a></li>
                         </ul>
                     </li>
                     <li><a href="index.php?action=disconnect">Déconnexion <i class="fas fa-sign-out-alt"></i></a></li>
             	<?php } else { ?>
-                    <li><a href="index.php?action=connexion">Connexion <i class="fas fa-sign-in-alt"></i></a></li></div>
+                    <li><a href="connexion">Connexion <i class="fas fa-sign-in-alt"></i></a></li></div>
                 <?php } ?>
             </ul>
         </nav>

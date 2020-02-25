@@ -4,9 +4,9 @@
 <h1><?= $post['title'] ?></h1>
 
 <section id="postcontent">
-    <div><a class="button" href="index.php?action=listPosts">Retour à la liste des chapitres</a>
+    <div><a class="button" href="blog">Retour à la liste des chapitres</a>
     <?php if (isset($_SESSION['login']) OR isset($_COOKIE['login'])) { ?>
-        <a class="button" href="index.php?action=adminEditPost&amp;id=<?= $post['id'] ?>">Modifier le chapitre</a>
+        <a class="button" href="modifier-un-chapitre-<?= $post['id'] ?>">Modifier le chapitre</a>
     <?php } ?>
     </div>
 

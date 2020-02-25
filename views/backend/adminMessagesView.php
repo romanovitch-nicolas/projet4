@@ -28,7 +28,7 @@ if($messageExist) {
 					<td>
 						<?php if($data['message_read'] == 0) { echo '<i class="fas fa-exclamation-circle" title="Message non lu"></i>'; } ?>
 						<?= $data['message_date_fr'] ?></td>
-					<td><a class="bold" href="index.php?action=message&amp;id=<?= $data['id'] ?>"><?= $data['subject'] ?></a></td>
+					<td><a class="bold" href="message-<?= $data['id'] ?>"><?= $data['subject'] ?></a></td>
 					<td><?= $data['name'] ?></td>
 					<td><?= $data['mail'] ?></td>
 					<td><a href="index.php?action=deleteMessage&amp;id=<?= $data['id'] ?>" title="Supprimer" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}"><i class="fas fa-trash"></i></a></td>

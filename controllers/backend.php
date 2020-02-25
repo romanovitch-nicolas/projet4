@@ -24,7 +24,7 @@ class BackendController
                     {
                         setcookie('login', $login, time() + 365*24*3600, null, null, false, true);
                     }
-                header('Location: index.php?action=adminPosts');
+                header('Location: gestion-des-chapitres');
             }
             else {
                 $return = 'Mauvais identifiant ou mot de passe.';
@@ -42,7 +42,7 @@ class BackendController
         $_SESSION = array();
         session_destroy();
         setcookie('login', '');
-        header("Location: index.php");
+        header("Location: accueil");
     }
 
     public function listPosts()
@@ -81,7 +81,7 @@ class BackendController
                                 throw new \Exception('Impossible d\'ajouter l\'image.');
                             }
                             else {
-                                header('Location: index.php?action=adminPosts');
+                                header('Location: gestion-des-chapitres');
                             }
                         }
                         else {
@@ -98,7 +98,7 @@ class BackendController
                         throw new \Exception('Impossible d\'ajouter l\'article.');
                     }
                     else {
-                        header('Location: index.php?action=adminPosts');
+                        header('Location: gestion-des-chapitres');
                     }
                 }
             }
@@ -150,7 +150,7 @@ class BackendController
                                 throw new Exception('Impossible de modifier l\'image.');
                             }
                             else {
-                               header('Location: index.php?action=adminPosts');
+                               header('Location: gestion-des-chapitres');
                             }   
                         }
                         else {
@@ -167,7 +167,7 @@ class BackendController
                         throw new Exception('Impossible de modifier le chapitre.');
                     }
                     else {
-                       header('Location: index.php?action=adminPosts');
+                       header('Location: gestion-des-chapitres');
                     }  
                 }
             }
@@ -192,7 +192,7 @@ class BackendController
             throw new \Exception('Impossible de supprimer ce chapitre.');
         }
         else {
-            header('Location: index.php?action=adminPosts');
+            header('Location: gestion-des-chapitres');
         }    
     }
 
@@ -209,7 +209,7 @@ class BackendController
             throw new \Exception('Impossible de supprimer l\'image.');
         }
         else {
-            header('Location: index.php?action=adminEditPost&id=' . $postId);
+            header('Location: modifier-un-chapitre-' . $postId);
         }
     }
 
@@ -222,7 +222,7 @@ class BackendController
             throw new \Exception('Impossible de publier ce chapitre.');
         }
         else {
-           header('Location: index.php?action=adminPosts');
+           header('Location: gestion-des-chapitres');
         }    
     }
 
@@ -235,7 +235,7 @@ class BackendController
             throw new \Exception('Impossible de passer ce chapitre dans les brouillons.');
         }
         else {
-           header('Location: index.php?action=adminPosts');
+           header('Location: gestion-des-chapitres');
         }    
     }
 
@@ -257,7 +257,7 @@ class BackendController
             throw new \Exception('Impossible de supprimer ce commentaire.');
         }
         else {
-           header('Location: index.php?action=adminComments');
+           header('Location: gestion-des-commentaires');
         }    
     }
 
@@ -270,7 +270,7 @@ class BackendController
             throw new \Exception('Impossible de supprimer le signalement.');
         }
         else {
-            header('Location: index.php?action=adminComments');
+            header('Location: gestion-des-commentaires');
         }
     }
 
@@ -301,7 +301,7 @@ class BackendController
             throw new \Exception('Impossible de supprimer ce message.');
         }
         else {
-            header('Location: index.php?action=adminMessages');
+            header('Location: messagerie');
         }    
     }
 }
