@@ -6,6 +6,7 @@ require_once('models/PostManager.php');
 
 class FrontendController
 {
+    // Affichage du dernier chapitre publié sur la page d'accueil
     public function home()
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -14,6 +15,7 @@ class FrontendController
         require('views/frontend/homeView.php');
     }
 
+    // Affichage des chapitres publiés
     public function listPosts()
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -22,6 +24,7 @@ class FrontendController
         require('views/frontend/listPostsView.php');
     }
 
+    // Affichage d'un chapitre
     public function post()
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -33,6 +36,7 @@ class FrontendController
         require('views/frontend/postView.php');
     }
 
+    // Ajout d'un commentaire
     public function addComment($postId, $author, $comment)
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -64,6 +68,7 @@ class FrontendController
         require("views/frontend/postView.php");
     }
 
+    // Signalement d'un commentaire
     public function reportComment($commentId, $postId)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
@@ -77,6 +82,7 @@ class FrontendController
         }
     }
 
+    // Ajout d'un message privé + envoi de mail
     public function addMessage($messageName, $messageMail, $messageSubject, $messageContent)
     {
         $messageManager = new \Nicolas\Projet4\Models\MessageManager();

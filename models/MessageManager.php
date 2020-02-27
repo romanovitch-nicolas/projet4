@@ -4,6 +4,7 @@ require_once("Manager.php");
 
 class MessageManager extends Manager
 {
+    // Récupération de tous les messages
     public function getAllMessages()
     {
         $db = $this->dbConnect();
@@ -12,6 +13,7 @@ class MessageManager extends Manager
         return $messages;
     }
 	
+    // Récupération d'un message
 	public function getMessage($messageId)
     {
         $db = $this->dbConnect();
@@ -22,6 +24,7 @@ class MessageManager extends Manager
         return $message;
     }
 
+    // Passage d'un message en "lu"
     public function setReadMessage($messageId)
     {
         $db = $this->dbConnect();
@@ -31,6 +34,7 @@ class MessageManager extends Manager
         return $readMessage;
     }
 
+    // Ajout d'un message
     public function insertMessage($messageName, $messageMail, $messageSubject, $messageContent)
     {
         $db = $this->dbConnect();
@@ -40,6 +44,7 @@ class MessageManager extends Manager
         return $insertMessage;
     }
 
+    // Suppression d'un message
     public function deleteMessage($messageId)
     {
         $db = $this->dbConnect();

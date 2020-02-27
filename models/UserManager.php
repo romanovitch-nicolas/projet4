@@ -4,6 +4,7 @@ require_once("Manager.php");
 
 class UserManager extends Manager
 {
+	// Récupération des informations de l'utilisateur
     public function getUserInfo($login)
     {
         $db = $this->dbConnect();

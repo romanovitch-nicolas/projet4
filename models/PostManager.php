@@ -4,6 +4,7 @@ require_once("Manager.php");
 
 class PostManager extends Manager
 {
+    // Récupération des chapitres publiés
     public function getOnlinePosts()
     {
         $db = $this->dbConnect();
@@ -12,6 +13,7 @@ class PostManager extends Manager
         return $onlinePosts;
     }
 
+    // Récupération d'un chapitre
     public function getPost($postId)
     {
         $db = $this->dbConnect();
@@ -22,6 +24,7 @@ class PostManager extends Manager
         return $post;
     }
 
+    // Récupération du dernier chapitre
     public function getLastPost()
     {
         $db = $this->dbConnect();
@@ -31,6 +34,7 @@ class PostManager extends Manager
         return $lastPost;
     }
 
+    // Récupération de tous les chapitres
     public function getAllPosts()
     {
         $db = $this->dbConnect();
@@ -39,6 +43,7 @@ class PostManager extends Manager
         return $posts;
     }
 
+    // Ajout d'un chapitre
     public function insertPost($postTitle, $postContent)
     {
         $db = $this->dbConnect();
@@ -49,6 +54,7 @@ class PostManager extends Manager
         return $lastId;
     }
 
+    // Ajout d'une image
     public function insertImage($postId, $imageName)
     {
         $db = $this->dbConnect();
@@ -58,6 +64,7 @@ class PostManager extends Manager
         return $insertImage;
     }
 
+    // Edition d'un chapitre
     public function setEditPost($postId, $postTitle, $postContent)
     {
         $db = $this->dbConnect();
@@ -67,6 +74,7 @@ class PostManager extends Manager
         return $editPost;
     }
 
+    // Suppression d'un chapitre
     public function deletePost($postId)
     {
         $db = $this->dbConnect();
@@ -84,6 +92,7 @@ class PostManager extends Manager
         }
     }
 
+    // Suppression d'une image
     public function setDeleteImage($postId)
     {
         $db = $this->dbConnect();
@@ -93,6 +102,7 @@ class PostManager extends Manager
         return $deleteImage;
     }
 
+    // Rendre un article public
     public function setOnlinePost($postId)
     {
         $db = $this->dbConnect();
@@ -102,6 +112,7 @@ class PostManager extends Manager
         return $onlinePost;
     }
 
+    // Rendre un article privé
     public function setOfflinePost($postId)
     {
         $db = $this->dbConnect();

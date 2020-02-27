@@ -6,7 +6,8 @@ require_once('models/PostManager.php');
 require_once('models/UserManager.php');
 
 class BackendController
-{
+{   
+    // Connexion
     public function connect()
     {
         $userManager = new \Nicolas\Projet4\Models\UserManager();
@@ -37,6 +38,7 @@ class BackendController
         require('views/frontend/connectView.php');
     }
 
+    // Déconnexion
     public function disconnect()
     { 
         $_SESSION = array();
@@ -45,6 +47,7 @@ class BackendController
         header("Location: accueil");
     }
 
+    // Affichage de la liste de tous les chapitres dans l'admin
     public function listPosts()
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -53,6 +56,7 @@ class BackendController
         require('views/backend/adminPostsView.php');
     }
 
+    // Ajout d'un nouveau chapitre
     public function addPost($postTitle, $postContent)
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -113,6 +117,7 @@ class BackendController
         require('views/backend/adminNewPostView.php');
     }
 
+    // Affichage de la page d'édition d'un chapitre
     public function editPostView($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -122,6 +127,7 @@ class BackendController
         require('views/backend/adminEditPostView.php');
     }
 
+    // Edition d'un chapitre
     public function editPost($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -183,6 +189,7 @@ class BackendController
         require('views/backend/adminEditPostView.php');  
     }
 
+    // Suppression d'un chapitre
     public function deletePost($postId)
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -196,6 +203,7 @@ class BackendController
         }    
     }
 
+    // Suppression de l'image d'un chapitre
     public function deleteImage($postId)
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -213,6 +221,7 @@ class BackendController
         }
     }
 
+    // Rendre un article public
     public function onlinePost($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -226,6 +235,7 @@ class BackendController
         }    
     }
 
+    // Rendre un article privé
     public function offlinePost($postId) 
     {
         $postManager = new \Nicolas\Projet4\Models\PostManager();
@@ -239,6 +249,7 @@ class BackendController
         }    
     }
 
+    // Affichage de la liste de tous les commentaires dans l'admin
     public function listComments()
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
@@ -248,6 +259,7 @@ class BackendController
         require('views/backend/adminCommentsView.php');
     }
 
+    // Suppression d'un commentaire
     public function deleteComment($commentId)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
@@ -261,6 +273,7 @@ class BackendController
         }    
     }
 
+    // Approbation d'un commentaire signalé
     public function deleteCommentReport($commentId)
     {
         $commentManager = new \Nicolas\Projet4\Models\CommentManager();
@@ -274,6 +287,7 @@ class BackendController
         }
     }
 
+    // Affichage de la liste des messages privés dans l'admin
     public function listMessages()
     {
         $messageManager = new \Nicolas\Projet4\Models\MessageManager();
@@ -282,6 +296,7 @@ class BackendController
         require('views/backend/adminMessagesView.php');
     }
 
+    // Affichage d'un message privé
     public function message()
     {
         $messageManager = new \Nicolas\Projet4\Models\MessageManager();
@@ -292,6 +307,7 @@ class BackendController
         require('views/backend/messageView.php');
     }
 
+    // Suppression d'un message privé
     public function deleteMessage($messageId)
     {
         $messageManager = new \Nicolas\Projet4\Models\MessageManager();

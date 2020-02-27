@@ -52,4 +52,5 @@
     <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/cwe4o8zjsewx7soze93j3wl2ihp0pb8l09n9fqjy3czfgbu9/tinymce/5/tinymce.min.js" referrerpolicy="origin"/></script>
     <script src="public/js/app.js"></script>
+    <script src="public/js/menu.js"></script>
 </html>
