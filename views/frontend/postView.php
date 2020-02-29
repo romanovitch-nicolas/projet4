@@ -1,7 +1,7 @@
 <?php $title = htmlspecialchars_decode($post['title']) ?>
 
 <?php ob_start(); ?>        
-<h1><?= $post['title'] ?></h1>
+<div class="title"><h1><?= $post['title'] ?></h1></div>
 
 <section id="postcontent">
     <div><a class="button" href="blog">Retour à la liste des chapitres</a>

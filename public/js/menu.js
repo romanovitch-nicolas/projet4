@@ -24,26 +24,10 @@ class Menu {
 		window.onscroll = function(e) {
 			if(scroll == false) {
 				scroll = true;
-				/*header.animate([
-					{backgroundColor: "transparent"},
-					{backgroundColor: "#FFF"}
-				], {
-					duration : 250,
-					iterations : 1,
-					fill : "forwards"
-				});*/
 				header.style.animation = "0.25s forwards header-color";
 			}
 			if (window.scrollY == 0) {
 				scroll = false;
-				/*header.animate([
-					{backgroundColor: "#FFF"},
-					{backgroundColor: "transparent"}
-				], {
-					duration : 250,
-					iterations : 1,
-					fill : "forwards"
-				});*/
 				header.style.animation = "0.25s forwards reverse header-color";
 			}
 		}

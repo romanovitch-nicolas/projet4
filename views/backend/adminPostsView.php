@@ -1,7 +1,9 @@
 <?php $title = "Gestion des chapitres" ?>
 
 <?php ob_start(); ?>
-<h1>Gestion des chapitres</h1>
+<div class="title"><h1>Gestion des chapitres</h1></div>
+
+<a class="button" href="ecrire-un-chapitre"><i class="fas fa-pen"></i> Écrire un chapitre</a>
 
 <?php
 $postExist = $posts->rowCount();
@@ -9,7 +11,6 @@ if($postExist) {
 ?>
 
 <section id="adminposts">
-	<a class="button" href="ecrire-un-chapitre"><i class="fas fa-pen"></i> Écrire un chapitre</a>
 	<table>
 		<thead>
 			<tr>

@@ -1,7 +1,7 @@
 <?php $title = "Contact" ?>
 
 <?php ob_start(); ?>
-<h1>Contact</h1>
+<div class="title"><h1>Contact</h1></div>
 
 <?php if (isset($return) && $return === true) { echo '<p class="return"><i class="fas fa-check"></i> Votre message a bien été envoyé.</p>'; } ?>
 <section id="contact">

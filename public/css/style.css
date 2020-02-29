@@ -30,16 +30,15 @@ img
 	max-width: 100%;
 }
 
-h1
+.title
 {
 	background-image: url("../../public/images/home.jpg");
 	background-size: cover;
-	line-height: 350%;
 	border-bottom: 1px solid #000;
-	font-size: 50px;
-	margin-block-start: 0;
+	font-size: 25px;
 	padding-top: 100px;
 	margin-top: -100px;
+	margin-bottom: 10px;
 }
 
 label
@@ -68,13 +67,23 @@ input, textarea
 	font-family: 'Courier Prime', monospace, sans-serif;
 	padding: 4px;
 	font-size: 14px;
-	-webkit-appearance: none;
 	border: 1px solid #A9A9A9;
+	-webkit-appearance: none;
 }
 
 input[type="text"], input[type="email"], input[type="password"]
 {
 	width: 300px;
+}
+
+input[type="file"]
+{
+	border: none;
+}
+
+input[type="checkbox"]
+{
+	-webkit-appearance: normal;
 }
 
 input[type="submit"]
@@ -829,6 +838,13 @@ i.fas.fa-pen
 		margin-right: auto;
 	}
 
+
+	/* TinyMCE */
+
+	.tox
+	{
+		width: 700px;
+	}
 }
 
 
@@ -842,9 +858,9 @@ i.fas.fa-pen
 		font-size: 14px;
 	}
 
-	h1
+	.title
 	{
-		font-size: 28px;
+		font-size: 14px;
 		background-size: 768px 400px;
 	}
 
@@ -994,6 +1010,8 @@ i.fas.fa-pen
 	{
 		margin-bottom: 10px;
 		width: 100%;
+		display: flex;
+		justify-content: center;
 	}
 
 	#newpost label, #editpost label
@@ -1004,6 +1022,16 @@ i.fas.fa-pen
 	::placeholder
 	{
 		visibility: visible;
+	}
+
+	#newpost input[type="text"]
+	{
+		width: 280px;
+	}
+
+	.tox
+	{
+		width: 290px;
 	}
 
 

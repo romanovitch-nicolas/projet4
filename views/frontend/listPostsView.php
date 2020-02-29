@@ -1,7 +1,7 @@
 <?php $title = "Liste des chapitres" ?>
 
 <?php ob_start(); ?>
-<h1>Billet simple pour l'Alaska</h1>
+<div class="title"><h1>Billet simple pour l'Alaska</h1></div>
 
 <?php
 $postExist = $posts->rowCount();

@@ -1,7 +1,7 @@
 <?php $title = "Messagerie" ?>
 
 <?php ob_start(); ?>
-<h1>Messagerie</h1>
+<div class="title"><h1>Messagerie</h1></div>
 
 <?php
 $messageExist = $messages->rowCount();

@@ -1,7 +1,7 @@
 <?php $title = "Ecrire un chapitre" ?>
 
 <?php ob_start(); ?>
-<h1>Ecrire un chapitre</h1>
+<div class="title"><h1>Ecrire un chapitre</h1></div>
 
 <section id="newpost">
 	<?php if (isset($return)) { echo '<p class="return red"><i class="fas fa-exclamation-circle"></i> ' . $return . '</p>'; } ?>

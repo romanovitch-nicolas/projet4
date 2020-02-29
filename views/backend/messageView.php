@@ -1,7 +1,7 @@
 <?php $title = "Message privé" ?>
 
 <?php ob_start(); ?>        
-<h1>Messagerie</h1>
+<div class="title"><h1>Messagerie</h1></div>
 
 <a class="button" href="messagerie">Retour à la liste des messages</a>
 <a class="button" href="index.php?action=deleteMessage&amp;id=<?= $message['id'] ?>" onclick="if(confirm('Supprimer définitivement ?')){return true;}else{return false;}">Supprimer le message</a>

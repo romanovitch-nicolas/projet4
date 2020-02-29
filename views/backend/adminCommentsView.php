@@ -1,7 +1,7 @@
 <?php $title = "Gestion des commentaires" ?>
 
 <?php ob_start(); ?>
-<h1>Gestion des commentaires</h1>
+<div class="title"><h1>Gestion des commentaires</h1></div>
 
 <?php
 $commentExist = $comments->rowCount();
